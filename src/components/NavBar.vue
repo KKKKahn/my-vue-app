@@ -10,6 +10,16 @@
       <div v-if="isMenuOpen" class="close-icon">✖️</div>
     </div>
 
+    <!-- 登录/注销 按钮 (右上角) -->
+    <div class="auth-button">
+  <div v-if="user">
+    <button class="logout-button" @click="logout">登出</button>
+  </div>
+  <div v-else>
+    <router-link to="/login" class="login-button">登录</router-link>
+  </div>
+</div>
+
     <!-- 居中显示的导航链接 (桌面端) -->
     <div class="nav-center">
       <router-link to="/home" class="nav-link">首页</router-link>
@@ -19,18 +29,6 @@
       <router-link to="/tools" class="nav-link">工具</router-link>
     </div>
 
-    <!-- 右侧的用户操作 -->
-    <div class="navbar-right">
-      <div v-if="user">
-        <span class="user-email">{{ user.email }}</span>
-        <button class="logout-button" @click="logout">登出</button>
-      </div>
-      <div v-else>
-        <router-link to="/login" class="nav-link">登录</router-link>
-        <router-link to="/register" class="nav-link">注册</router-link>
-      </div>
-    </div>
-
     <!-- 折叠菜单（小屏幕时显示的菜单） -->
     <div v-if="isMenuOpen" class="mobile-menu">
       <router-link to="/home" class="mobile-nav-link" @click="closeMenu">首页</router-link>
@@ -38,6 +36,8 @@
       <router-link to="/contact" class="mobile-nav-link" @click="closeMenu">联系我们</router-link>
       <router-link to="/search" class="mobile-nav-link" @click="closeMenu">搜索</router-link>
       <router-link to="/tools" class="mobile-nav-link" @click="closeMenu">工具</router-link>
+
+      
     </div>
   </nav>
 </template>
@@ -70,6 +70,7 @@ export default {
     const logout = async () => {
       try {
         await signOut(auth);
+        user.value = null;
       } catch (error) {
         alert(error.message);
       }
@@ -101,6 +102,15 @@ export default {
   padding: 0 20px;
   z-index: 1000;
 }
+.nav-link {
+  color: #e1e1e1; 
+  text-decoration: none;
+  margin: 0 15px;
+  font-size: 16px;
+}
+.nav-link:hover {
+  text-decoration: underline;
+}
 
 .nav-center {
   display: flex;
@@ -108,25 +118,38 @@ export default {
   align-items: center;
 }
 
-.navbar-right {
+.auth-button {
   position: absolute;
-  right: 20px;
+  right: 20px; 
+  top: 15px; 
   display: flex;
   align-items: center;
 }
 
-.nav-link {
-  color: #e1e1e1;
+
+.login-button, 
+.logout-button {
+  background-color: #6c5ce7;
+  color: #ffffff;
+  padding: 8px 16px;
+  border-radius: 6px;
+  border: none;
   text-decoration: none;
-  margin: 0 15px;
-  font-size: 16px;
+  font-size: 14px;
+  margin-left: 10px; 
+}
+
+
+.login-button:hover, 
+.logout-button:hover {
+  background: linear-gradient(90deg, #8e44ad 0%, #3498db 100%);
 }
 
 .burger-menu {
   display: none;
   position: absolute;
   top: 15px;
-  right: 20px;
+  right: 70px; /* 调整右侧按钮的位置 */
   flex-direction: column;
   justify-content: space-around;
   height: 20px;
@@ -165,6 +188,19 @@ export default {
   text-decoration: none;
 }
 
+.mobile-login-button, .mobile-logout-button {
+  background-color: #6c5ce7;
+  color: #ffffff;
+  padding: 10px 20px;
+  border-radius: 6px;
+  border: none;
+  font-size: 16px;
+}
+
+.mobile-login-button:hover, .mobile-logout-button:hover {
+  background: linear-gradient(90deg, #8e44ad 0%, #3498db 100%);
+}
+
 .logout-button {
   background-color: #6c5ce7;
   border: none;
@@ -172,23 +208,27 @@ export default {
   border-radius: 6px;
   color: #ffffff;
 }
-
-button:hover {
-  background: linear-gradient(90deg, #8e44ad 0%, #3498db 100%);
+@media (max-width: 768px) {
+  .login-button, 
+  .logout-button {
+    font-size: 12px; /* 缩小按钮大小，避免太大 */
+    padding: 6px 12px;
+  }
 }
-
-/* 响应式设计 */
 @media (max-width: 768px) {
   .nav-center {
-    display: none; /* 隐藏导航链接 */
+    display: none; 
   }
 
-  .navbar-right {
-    display: none; /* 隐藏右侧用户按钮 */
+  .auth-button {
+    display: flex !important; /* 确保始终显示在右上角 */
+    position: absolute;
+    top: 12px;
+    right: 10px;
   }
 
   .burger-menu {
-    display: flex; /* 显示汉堡菜单按钮 */
+    display: flex; 
   }
 }
 </style>
