@@ -69,8 +69,8 @@
   }
   
   .kahn-icon {
-    width: 200px; /* 图标宽度 */
-    height: 200px; /* 图标高度 */
+    width: 100px; /* 图标宽度 */
+    height: 100px; /* 图标高度 */
     margin-bottom: 10px; /* 与“欢迎回来”标题之间的间距 */
   }
   
