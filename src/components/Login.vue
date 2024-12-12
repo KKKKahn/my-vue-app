@@ -1,14 +1,21 @@
 <template>
     <div class="auth-container">
+      <!-- 在“欢迎回来”标题上方添加SVG图像 -->
+      <img src="../assets/icons/kahn.svg" alt="Kahn 图标" class="kahn-icon" />
+  
       <h1 class="auth-title">欢迎回来</h1>
   
       <form @submit.prevent="login">
+        <!-- 邮箱输入框 -->
         <div class="input-group">
           <input type="email" v-model="email" placeholder="电子邮件" required />
         </div>
+  
+        <!-- 密码输入框 -->
         <div class="input-group">
           <input type="password" v-model="password" placeholder="密码" required />
         </div>
+  
         <button type="submit" class="login-button">登录</button>
       </form>
   
@@ -53,12 +60,18 @@
   /* 覆盖整个屏幕，并使用与 body 相同的背景色 */
   .auth-container {
     width: 100vw;
-    height: 30%;
+    height: 20%;
     background-color: #0d1117; /* 背景色 */
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+  }
+  
+  .kahn-icon {
+    width: 200px; /* 图标宽度 */
+    height: 200px; /* 图标高度 */
+    margin-bottom: 10px; /* 与“欢迎回来”标题之间的间距 */
   }
   
   .auth-title {
