@@ -53,7 +53,7 @@
   /* 覆盖整个屏幕，并使用与 body 相同的背景色 */
   .auth-container {
     width: 100vw;
-    height: 70vh;
+    height: 30%;
     background-color: #0d1117; /* 背景色 */
     display: flex;
     justify-content: center;
