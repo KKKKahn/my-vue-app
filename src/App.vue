@@ -8,10 +8,26 @@
 </template>
 
 <script>
-import NavBar from './components/NavBar.vue'
+import NavBar from './components/NavBar.vue';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from './firebase';
+import { ref } from 'vue';
+
 export default {
-  components: { NavBar }
-}
+  name: 'App',
+  components: {
+    NavBar
+  },
+  setup() {
+    const user = ref(null);
+
+    onAuthStateChanged(auth, (currentUser) => {
+      user.value = currentUser;
+    });
+
+    return { user };
+  }
+};
 </script>
 
 <style>
@@ -27,11 +43,20 @@ body {
   text-align: center;
 }
 
+/* 确保 body、html 和 #app 填充整个屏幕，背景色为 #0d1117 */
+body, html, #app {
+  overflow: hidden; /* 禁止页面滚动 */
+  touch-action: none; /* 禁止触摸屏上下滑动 */
+}
+
+
+
 .content-wrapper {
+  padding-top: 70px; /* 确保内容不被导航栏遮挡 */
   display: flex;
   justify-content: center;
   align-items: center;
-  height: calc(100vh - 70px); /* 减去导航栏的高度 */
+  height: 100%; 
 }
 
 h1, h2, h3, h4, h5, h6 {
