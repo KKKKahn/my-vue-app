@@ -127,14 +127,21 @@ export default {
 
 .login-button, 
 .logout-button {
-  background-color: #6c5ce7;
-  color: #ffffff;
-  padding: 8px 16px;
-  border-radius: 6px;
-  border: none;
-  text-decoration: none;
-  font-size: 14px;
-  margin-left: 10px; 
+  background-color: #6c5ce7; /* 按钮的背景色 */
+  color: #ffffff; /* 按钮的文字颜色 */
+  padding: 8px 16px; /* 控制按钮的内边距（会影响按钮的高度和宽度） */
+  border-radius: 10px; /* 按钮的圆角 */
+  border: none; /* 边框 */
+  text-decoration: none; /* 去掉 router-link 的下划线 */
+  font-size: 14px; /* 文字的大小，调整文字的大小 */
+  margin-left: 10px; /* 按钮之间的间距 */
+  display: inline-flex; /* 让按钮的布局和 router-link 一致 */
+  justify-content: center; /* 让按钮内的文字水平居中 */
+  align-items: center; /* 让按钮内的文字垂直居中 */
+  height: 40px; /* 按钮的高度，直接控制按钮的垂直大小 */
+  min-width: 70px; /* 按钮的最小宽度，确保“登录”和“登出”按钮宽度一致 */
+  text-align: center; /* 按钮内文字的居中对齐 */
+  box-sizing: border-box; /* 确保 padding 不影响宽度 */
 }
 
 
@@ -150,7 +157,7 @@ export default {
   right: 80px; /* 调整右侧按钮的位置 */
   flex-direction: column;
   justify-content: space-around;
-  height: 25px;
+  height: 30px;
   cursor: pointer;
 }
 
@@ -209,8 +216,14 @@ export default {
 @media (max-width: 768px) {
   .login-button, 
   .logout-button {
-    font-size: 12px; /* 缩小按钮大小，避免太大 */
-    padding: 9px 18px;
+    font-size: 14px; 
+    padding: 8px 16px; 
+    height: 35px; 
+    min-width: 60px; 
+    line-height: 0.5; 
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
   }
 }
 @media (max-width: 768px) {
@@ -219,9 +232,10 @@ export default {
   }
 
   .auth-button {
-    display: flex !important; /* 确保始终显示在右上角 */
+    display: flex !important; 
+    justify-content: flex-end; 
     position: absolute;
-    top: 12px;
+    top: 10px;
     right: 10px;
   }
 
