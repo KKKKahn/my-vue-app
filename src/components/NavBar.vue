@@ -28,7 +28,12 @@
       <router-link to="/contact" class="nav-link">联系</router-link>
       <router-link to="/about" class="nav-link">关于</router-link>
     </div>
-
+<!-- 透明的遮罩层，点击时关闭菜单 -->
+<div 
+  v-if="isMenuOpen" 
+  class="menu-overlay" 
+  @click="closeMenu">
+</div>
     <!-- 折叠菜单（小屏幕时显示的菜单） -->
     <div v-if="isMenuOpen" class="mobile-menu">
       <router-link to="/home" class="mobile-nav-link" @click="closeMenu">首页</router-link>
@@ -83,6 +88,7 @@ export default {
     };
   }
 };
+
 </script>
 
 <style scoped>
@@ -173,18 +179,33 @@ export default {
   color: #ffffff;
 }
 
+
+
+.menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5); 
+  backdrop-filter: blur(5px); 
+  z-index: 900; 
+}
+
 .mobile-menu {
   position: fixed;
   top: 0;
   right: 0;
-  width: 100vw;
+  width: 80%;
   height: 100vh;
   background-color: #0d1117;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  z-index: 1000; 
 }
+
 
 .mobile-nav-link {
   color: #ffffff;
