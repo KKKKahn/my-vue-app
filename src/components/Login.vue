@@ -142,7 +142,6 @@ export default {
 <style scoped>
 .auth-container {
   width: 100%;
-  height: 100vh; 
   background-color: #0d1117; 
   display: flex;
   justify-content: center;
@@ -151,8 +150,8 @@ export default {
 }
 
 .form-container {
-  width: 80%;
-  max-width: 360px;
+  width: 100%;
+  max-width: 400px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -217,7 +216,7 @@ form {
 }
 
 .google-login-button {
-  width: 100%; 
+  width: 90%; 
   background-color: #ffffff; 
   color: #000000; 
   font-size: 18px;

@@ -1,7 +1,7 @@
 <template>
-    <div class="form-container">
+    <div class="auth-container">
       <h1 class="auth-title">手机号码登录</h1>
-  
+      <form>
       <!-- 手机号码输入框（禁用以使用固定号码） -->
       <div class="input-group">
         <input 
@@ -47,7 +47,7 @@
         <span v-if="!isLoading">登录</span>
         <span v-else class="loader"></span>
       </button>
-  
+    </form>
       <p class="switch-login-method">
         <a href="javascript:void(0);" @click="$emit('switch-to-email')">返回电子邮件登录</a>
       </p>
@@ -140,5 +140,4 @@
     },
   };
   </script>
-  
-  
+

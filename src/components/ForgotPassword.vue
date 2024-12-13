@@ -1,8 +1,7 @@
 <template>
-    <div class="form-container">
+
       <h1 class="auth-title">重置密码</h1>
-  
-      <form @submit.prevent="resetPassword" class="form">
+      <form>
         <div class="input-group">
           <input 
             type="email" 
@@ -25,7 +24,7 @@
       <p class="back-to-login">
         <a href="javascript:void(0);" @click="$emit('back-to-login')">返回登录</a>
       </p>
-    </div>
+
   </template>
   
   <script>
