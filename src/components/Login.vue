@@ -71,14 +71,13 @@
   .kahn-icon {
     width: 100px; /* 图标宽度 */
     height: 100px; /* 图标高度 */
-    margin-bottom: 10px; /* 与“欢迎回来”标题之间的间距 */
   }
   
   .auth-title {
     font-size: 32px;
     color: #ffffff;
     font-weight: bold;
-    margin-bottom: 40px;
+    margin: 10px;
     text-align: center;
   }
   
