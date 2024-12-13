@@ -23,21 +23,19 @@
     <!-- 居中显示的导航链接 (桌面端) -->
     <div class="nav-center">
       <router-link to="/home" class="nav-link">首页</router-link>
-      <router-link to="/about" class="nav-link">关于</router-link>
-      <router-link to="/contact" class="nav-link">联系我们</router-link>
       <router-link to="/search" class="nav-link">搜索</router-link>
       <router-link to="/tools" class="nav-link">工具</router-link>
+      <router-link to="/contact" class="nav-link">联系</router-link>
+      <router-link to="/about" class="nav-link">关于</router-link>
     </div>
 
     <!-- 折叠菜单（小屏幕时显示的菜单） -->
     <div v-if="isMenuOpen" class="mobile-menu">
       <router-link to="/home" class="mobile-nav-link" @click="closeMenu">首页</router-link>
-      <router-link to="/about" class="mobile-nav-link" @click="closeMenu">关于</router-link>
-      <router-link to="/contact" class="mobile-nav-link" @click="closeMenu">联系我们</router-link>
       <router-link to="/search" class="mobile-nav-link" @click="closeMenu">搜索</router-link>
       <router-link to="/tools" class="mobile-nav-link" @click="closeMenu">工具</router-link>
-
-      
+      <router-link to="/contact" class="mobile-nav-link" @click="closeMenu">联系</router-link>
+      <router-link to="/about" class="mobile-nav-link" @click="closeMenu">关于</router-link>
     </div>
   </nav>
 </template>
