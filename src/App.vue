@@ -53,7 +53,7 @@ body, html, #app {
 
 
 .content-wrapper {
-  padding-top: 70px; /* 确保内容不被导航栏遮挡 */
+  padding-top: 30px; /* 确保内容不被导航栏遮挡 */
   display: flex;
   justify-content: center;
   align-items: center;
