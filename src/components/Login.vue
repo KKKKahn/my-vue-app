@@ -147,6 +147,7 @@ export default {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  overflow-y: auto; 
 }
 
 .form-container {

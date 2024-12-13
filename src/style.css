@@ -195,7 +195,7 @@ button:focus-visible {
 .forgot-password-link,
 .back-to-login,
 .switch-login-method {
-  margin-top: 20px;
+  margin-top: 0px;
   color: #e1e1e1;
   text-align: center;
 }
