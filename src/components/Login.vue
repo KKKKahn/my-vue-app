@@ -16,7 +16,14 @@
           <input type="password" v-model="password" placeholder="密码" required />
         </div>
   
-        <button type="submit" class="login-button">登录</button>
+        <!-- 登录按钮 -->
+        <button 
+          type="submit" 
+          class="login-button" 
+          :disabled="isLoading">
+          <span v-if="!isLoading">登录</span>
+          <span v-else class="loader"></span>
+        </button>
       </form>
   
       <p class="register-prompt">
@@ -36,20 +43,25 @@
     setup() {
       const email = ref('');
       const password = ref('');
+      const isLoading = ref(false); // 🔥 新增加载状态
       const router = useRouter();
   
       const login = async () => {
+        isLoading.value = true; // 启动加载状态
         try {
           await signInWithEmailAndPassword(auth, email.value, password.value);
           router.push('/home');
         } catch (error) {
           alert('登录失败：' + error.message);
+        } finally {
+          isLoading.value = false; // 无论成功或失败，重置加载状态
         }
       };
   
       return {
         email,
         password,
+        isLoading, // 返回到模板中
         login
       };
     }
@@ -94,15 +106,15 @@
   }
   
   .input-group input {
-    width: 100%; /* 确保输入框的宽度与按钮一致 */
+    width: 100%; 
     padding: 15px 20px;
     font-size: 16px;
     border: 2px solid #3e3e42;
-    border-radius: 12px; /* 圆角边框 */
-    background-color: #1e1e24; /* 深色背景，和页面背景相呼应 */
+    border-radius: 12px; 
+    background-color: #1e1e24; 
     color: #ffffff;
     outline: none;
-    box-sizing: border-box; /* 关键: 确保 padding 和 border 在 width 中 */
+    box-sizing: border-box; 
     transition: all 0.3s ease;
   }
   
@@ -111,30 +123,36 @@
   }
   
   .input-group input:focus {
-    border-color: #6c5ce7; /* 聚焦时的高亮边框颜色 */
-    background-color: #1c1f26; /* 聚焦时的背景色 */
+    border-color: #6c5ce7; 
+    background-color: #1c1f26; 
   }
   
   .input-group input:hover {
-    border-color: #8e44ad; /* 悬浮时的边框颜色 */
+    border-color: #8e44ad; 
   }
   
   .login-button {
-    width: 100%; /* 按钮的宽度与输入框一致 */
+    width: 100%; 
     background-color: #6c5ce7;
     color: #ffffff;
     font-size: 18px;
     border: none;
     padding: 14px 0;
-    border-radius: 12px; /* 按钮圆角，和输入框的边框一致 */
+    border-radius: 12px; 
     cursor: pointer;
     transition: all 0.3s ease;
     text-align: center;
-    box-sizing: border-box; /* 关键: 确保 padding 和 border 在 width 中 */
+    box-sizing: border-box; 
+    position: relative;
   }
   
   .login-button:hover {
     background-color: #8e44ad;
+  }
+  
+  .login-button:disabled {
+    background-color: #444; 
+    cursor: not-allowed; 
   }
   
   .register-prompt {
@@ -150,5 +168,25 @@
   
   .register-link:hover {
     text-decoration: underline;
+  }
+  
+  /* 🔥 新增的加载动画样式 */
+  .loader {
+    width: 20px;
+    height: 20px;
+    border: 3px solid #ffffff;
+    border-radius: 50%;
+    border-top-color: #6c5ce7;
+    animation: spin 1s infinite linear;
+    display: inline-block;
+  }
+  
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
   }
   </style>
