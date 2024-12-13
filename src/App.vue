@@ -44,13 +44,12 @@ body {
   width: 90%;
 }
 
-/* 1
 /* 确保 body、html 和 #app 填充整个屏幕，背景色为 #0d1117 */
 body, html, #app {
   overflow: hidden; /* 禁止页面滚动 */
   touch-action: none; /* 禁止触摸屏上下滑动 */
 }
-1 */
+
 
 
 .content-wrapper {
