@@ -61,7 +61,7 @@ button:focus-visible {
 #app {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 0rem;
   text-align: center;
 }
 
@@ -76,4 +76,224 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+
+
+/* 所有页面 */
+/* src/assets/styles.css */
+.content-wrapper {
+  padding-top: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+/* 共享输入框样式 */
+.input-field {
+  width: 100%; 
+  padding: 15px 20px;
+  font-size: 16px;
+  border: 2px solid #3e3e42;
+  border-radius: 12px; 
+  background-color: #1e1e24; 
+  color: #ffffff;
+  outline: none;
+  box-sizing: border-box; 
+  transition: all 0.3s ease;
+}
+
+.input-field::placeholder {
+  color: #b1b1b1;
+}
+
+.input-field:focus {
+  border-color: #6c5ce7; 
+  background-color: #1c1f26; 
+}
+
+.input-field:hover {
+  border-color: #8e44ad; 
+}
+
+/* 共享按钮样式 */
+.button {
+  width: 100%; 
+  background-color: #6c5ce7;
+  color: #ffffff;
+  font-size: 18px;
+  border: none;
+  padding: 14px 0;
+  border-radius: 12px; 
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  box-sizing: border-box; 
+  position: relative;
+}
+
+.button:hover {
+  background-color: #8e44ad;
+}
+
+.button:disabled {
+  background-color: #444; 
+  cursor: not-allowed; 
+}
+
+/* 加载动画 */
+.loader {
+  width: 20px;
+  height: 20px;
+  border: 3px solid #ffffff;
+  border-radius: 50%;
+  border-top-color: #6c5ce7;
+  animation: spin 1s infinite linear;
+  display: inline-block;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* 通用容器样式 */
+.auth-container {
+  width: 100vw;
+  height: 100vh;
+  background-color: #0d1117;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.form-container {
+  width: 100%;
+  max-width: 360px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.auth-title {
+  font-size: 32px;
+  color: #ffffff;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.input-group {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.forgot-password-link,
+.back-to-login,
+.switch-login-method {
+  margin-top: 20px;
+  color: #e1e1e1;
+  text-align: center;
+}
+
+.forgot-password-link a,
+.back-to-login a,
+.switch-login-method a {
+  color: #6c5ce7;
+  text-decoration: none;
+}
+
+.forgot-password-link a:hover,
+.back-to-login a:hover,
+.switch-login-method a:hover {
+  text-decoration: underline;
+}
+
+
+
+
+
+
+/* 注册页面 */
+.kahn-icon {
+  width: 100px; /* 图标宽度 */
+  height: 100px; /* 图标高度 */
+}
+/* 确保 auth-container 覆盖整个屏幕，并使用与 body 相同的背景色 */
+
+
+
+form {
+  width: 100%;
+  max-width: 360px;
+  display: flex;
+  flex-direction: column;
+}
+
+.input-group {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 15px 20px;
+  font-size: 16px;
+  border: 2px solid #3e3e42;
+  border-radius: 12px; /* 圆角边框 */
+  background-color: #1e1e24; /* 深色背景，和页面背景相呼应 */
+  color: #ffffff;
+  outline: none;
+  box-sizing: border-box; /* 关键: 确保 padding 和 border 在 width 中 */
+  transition: all 0.3s ease;
+}
+
+.input-group input::placeholder {
+  color: #b1b1b1;
+}
+
+.input-group input:focus {
+  border-color: #6c5ce7; /* 聚焦时的高亮边框颜色 */
+  background-color: #1c1f26; /* 聚焦时的背景色 */
+}
+
+.input-group input:hover {
+  border-color: #8e44ad; /* 悬浮时的边框颜色 */
+}
+
+.register-button {
+  width: 100%; /* 按钮的宽度与输入框一致 */
+  background-color: #6c5ce7;
+  color: #ffffff;
+  font-size: 18px;
+  border: none;
+  padding: 14px 0;
+  border-radius: 12px; /* 按钮圆角，和输入框的边框一致 */
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  box-sizing: border-box; /* 关键: 确保 padding 和 border 在 width 中 */
+}
+
+.register-button:hover {
+  background-color: #8e44ad;
+}
+
+.login-prompt {
+  color: #e1e1e1;
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+.login-link {
+  color: #6c5ce7;
+  text-decoration: none;
+}
+
+.login-link:hover {
+  text-decoration: underline;
 }

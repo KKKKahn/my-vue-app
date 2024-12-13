@@ -42,7 +42,6 @@ body {
 #app {
   text-align: center;
   width: 90%;
-  padding: 0rem !important;
 }
 
 /* 确保 body、html 和 #app 填充整个屏幕，背景色为 #0d1117 */

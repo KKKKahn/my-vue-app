@@ -1,26 +1,27 @@
 <template>
   <nav class="navbar">
-    <!-- 右上角的汉堡菜单按钮（仅在移动设备上可见） -->
+    <!-- 汉堡菜单按钮 -->
     <div class="burger-menu" @click="toggleMenu">
       <div v-if="!isMenuOpen" class="line"></div>
       <div v-if="!isMenuOpen" class="line"></div>
       <div v-if="!isMenuOpen" class="line"></div>
 
-      <!-- 返回图标（❌） -->
+      <!-- 关闭菜单的 X 图标 -->
       <div v-if="isMenuOpen" class="close-icon">✖️</div>
     </div>
 
-    <!-- 登录/注销 按钮 (右上角) -->
-    <div class="auth-button">
-  <div v-if="user">
-    <button class="logout-button" @click="logout">登出</button>
-  </div>
-  <div v-else>
-    <router-link to="/login" class="login-button">登录</router-link>
-  </div>
-</div>
+    <!-- 桌面端的登录/登出按钮 -->
+    <div class="auth-button desktop-only">
+      <div v-if="user" class="user-info">
+        <span class="user-email">{{ user.email }}</span>
+        <button class="logout-button" @click="logout">登出</button>
+      </div>
+      <div v-else>
+        <router-link to="/login" class="login-button">登录</router-link>
+      </div>
+    </div>
 
-    <!-- 居中显示的导航链接 (桌面端) -->
+    <!-- 居中的导航链接 -->
     <div class="nav-center">
       <router-link to="/home" class="nav-link">首页</router-link>
       <router-link to="/search" class="nav-link">搜索</router-link>
@@ -28,14 +29,27 @@
       <router-link to="/contact" class="nav-link">联系</router-link>
       <router-link to="/about" class="nav-link">关于</router-link>
     </div>
-<!-- 透明的遮罩层，点击时关闭菜单 -->
-<div 
-  v-if="isMenuOpen" 
-  class="menu-overlay" 
-  @click="closeMenu">
-</div>
-    <!-- 折叠菜单（小屏幕时显示的菜单） -->
+
+    <!-- 菜单的透明遮罩层 -->
+    <div 
+      v-if="isMenuOpen" 
+      class="menu-overlay" 
+      @click="closeMenu">
+    </div>
+
+    <!-- 移动端汉堡菜单 -->
     <div v-if="isMenuOpen" class="mobile-menu">
+      <!-- 右上角的用户信息 -->
+      <div class="auth-container">
+        <div v-if="user" class="mobile-user-info">
+          <span class="mobile-user-email">{{ user.email }}</span>
+          <button class="mobile-logout-button" @click="logout">登出</button>
+        </div>
+        <div v-else>
+          <router-link to="/login" class="mobile-login-button" @click="closeMenu">登录</router-link>
+        </div>
+      </div>
+
       <router-link to="/home" class="mobile-nav-link" @click="closeMenu">首页</router-link>
       <router-link to="/search" class="mobile-nav-link" @click="closeMenu">搜索</router-link>
       <router-link to="/tools" class="mobile-nav-link" @click="closeMenu">工具</router-link>
@@ -49,12 +63,14 @@
 import { ref, onMounted } from 'vue';
 import { auth } from '../firebase';
 import { signOut } from 'firebase/auth';
+import { useRouter } from 'vue-router';
 
 export default {
   name: 'NavBar',
   setup() {
     const user = ref(null);
     const isMenuOpen = ref(false);
+    const router = useRouter();
 
     onMounted(() => {
       auth.onAuthStateChanged((currentUser) => {
@@ -74,6 +90,7 @@ export default {
       try {
         await signOut(auth);
         user.value = null;
+        router.push('/login');
       } catch (error) {
         alert(error.message);
       }
@@ -88,11 +105,22 @@ export default {
     };
   }
 };
-
 </script>
 
 <style scoped>
-/* 主导航栏样式 */
+.auth-container {
+    width: none;
+    height: 190px;
+    background-color: #0d1117;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+
+/* 导航栏样式 */
 .navbar {
   position: fixed;
   top: 0;
@@ -106,12 +134,62 @@ export default {
   padding: 0 20px;
   z-index: 1000;
 }
+
+.auth-button {
+  position: absolute;
+  right: 20px; 
+  top: 15px; 
+  display: flex;
+  align-items: center;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+}
+
+.user-email {
+  color: #ffffff; 
+  font-size: 14px; 
+  margin-right: 10px; 
+}
+
+.logout-button {
+  background-color: #6c5ce7;
+  color: #ffffff;
+  padding: 8px 16px;
+  border-radius: 10px;
+  border: none;
+  text-decoration: none;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.logout-button:hover {
+  background: linear-gradient(90deg, #8e44ad 0%, #3498db 100%);
+}
+
+.login-button {
+  background-color: #6c5ce7;
+  color: #ffffff;
+  padding: 8px 16px;
+  border-radius: 10px;
+  border: none;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.login-button:hover {
+  background: linear-gradient(90deg, #8e44ad 0%, #3498db 100%);
+}
+
 .nav-link {
   color: #e1e1e1; 
   text-decoration: none;
   margin: 0 15px;
   font-size: 16px;
 }
+
 .nav-link:hover {
   text-decoration: underline;
 }
@@ -122,45 +200,11 @@ export default {
   align-items: center;
 }
 
-.auth-button {
-  position: absolute;
-  right: 20px; 
-  top: 15px; 
-  display: flex;
-  align-items: center;
-}
-
-
-.login-button, 
-.logout-button {
-  background-color: #6c5ce7; /* 按钮的背景色 */
-  color: #ffffff; /* 按钮的文字颜色 */
-  padding: 8px 16px; /* 控制按钮的内边距（会影响按钮的高度和宽度） */
-  border-radius: 10px; /* 按钮的圆角 */
-  border: none; /* 边框 */
-  text-decoration: none; /* 去掉 router-link 的下划线 */
-  font-size: 14px; /* 文字的大小，调整文字的大小 */
-  margin-left: 10px; /* 按钮之间的间距 */
-  display: inline-flex; /* 让按钮的布局和 router-link 一致 */
-  justify-content: center; /* 让按钮内的文字水平居中 */
-  align-items: center; /* 让按钮内的文字垂直居中 */
-  height: 40px; /* 按钮的高度，直接控制按钮的垂直大小 */
-  min-width: 70px; /* 按钮的最小宽度，确保“登录”和“登出”按钮宽度一致 */
-  text-align: center; /* 按钮内文字的居中对齐 */
-  box-sizing: border-box; /* 确保 padding 不影响宽度 */
-}
-
-
-.login-button:hover, 
-.logout-button:hover {
-  background: linear-gradient(90deg, #8e44ad 0%, #3498db 100%);
-}
-
 .burger-menu {
   display: none;
   position: absolute;
   top: 13px;
-  right: 80px; /* 调整右侧按钮的位置 */
+  right: 20px; 
   flex-direction: column;
   justify-content: space-around;
   height: 30px;
@@ -178,8 +222,6 @@ export default {
   font-size: 24px;
   color: #ffffff;
 }
-
-
 
 .menu-overlay {
   position: fixed;
@@ -201,11 +243,11 @@ export default {
   background-color: #0d1117;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   z-index: 1000; 
+  padding-top: 20px;
 }
-
 
 .mobile-nav-link {
   color: #ffffff;
@@ -214,54 +256,115 @@ export default {
   text-decoration: none;
 }
 
-.mobile-login-button, .mobile-logout-button {
-  background-color: #6c5ce7;
-  color: #ffffff;
+.mobile-auth {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
   padding: 10px 20px;
-  border-radius: 6px;
-  border: none;
-  font-size: 16px;
 }
 
-.mobile-login-button:hover, .mobile-logout-button:hover {
+.mobile-user-info {
+  display: flex;
+  align-items: center;
+}
+
+.mobile-user-email {
+  color: #ffffff;
+  font-size: 14px;
+  margin-right: 10px;
+}
+
+.mobile-login-button, 
+.mobile-logout-button {
+  background-color: #6c5ce7;
+  color: #ffffff;
+  padding: 8px 16px;
+  border-radius: 10px;
+  border: none;
+  font-size: 14px;
+  text-align: center;
+}
+
+.mobile-login-button:hover, 
+.mobile-logout-button:hover {
   background: linear-gradient(90deg, #8e44ad 0%, #3498db 100%);
+}
+
+.desktop-only {
+  display: none;
 }
 
 .logout-button {
   background-color: #6c5ce7;
   border: none;
   padding: 8px 16px;
-  border-radius: 6px;
+  border-radius: 10px;
   color: #ffffff;
 }
-@media (max-width: 768px) {
-  .login-button, 
-  .logout-button {
-    font-size: 14px; 
-    padding: 8px 16px; 
-    height: 35px; 
-    min-width: 60px; 
-    line-height: 0.5; 
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-  }
-}
+
 @media (max-width: 768px) {
   .nav-center {
     display: none; 
   }
 
-  .auth-button {
-    display: flex !important; 
-    justify-content: flex-end; 
-    position: absolute;
-    top: 10px;
-    right: 10px;
-  }
-
   .burger-menu {
     display: flex; 
   }
+
+  .auth-button {
+    display: none;
+  }
+
+  .desktop-only {
+    display: none;
+  }
+
+  .mobile-auth {
+    display: flex;
+  }
+
+  .mobile-user-info {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+  }
+
+  .mobile-user-email {
+    color: #ffffff;
+    font-size: 14px;
+    margin-right: 10px;
+  }
+
+  .mobile-logout-button, 
+  .mobile-login-button {
+    background-color: #6c5ce7;
+    color: #ffffff;
+    padding: 8px 16px;
+    border-radius: 10px;
+    border: none;
+    font-size: 14px;
+  }
+
+  .mobile-logout-button:hover, 
+  .mobile-login-button:hover {
+    background: linear-gradient(90deg, #8e44ad 0%, #3498db 100%);
+  }
 }
+
+@media (min-width: 768px) {
+  .mobile-menu {
+    display: none;
+  }
+
+  .mobile-auth {
+    display: none;
+  }
+
+  .auth-button {
+    display: flex;
+    justify-content: flex-end; 
+  }
+}
+
 </style>
