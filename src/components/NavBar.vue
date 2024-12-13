@@ -146,11 +146,11 @@ export default {
 .burger-menu {
   display: none;
   position: absolute;
-  top: 15px;
-  right: 70px; /* 调整右侧按钮的位置 */
+  top: 13px;
+  right: 80px; /* 调整右侧按钮的位置 */
   flex-direction: column;
   justify-content: space-around;
-  height: 20px;
+  height: 25px;
   cursor: pointer;
 }
 
@@ -210,7 +210,7 @@ export default {
   .login-button, 
   .logout-button {
     font-size: 12px; /* 缩小按钮大小，避免太大 */
-    padding: 6px 12px;
+    padding: 9px 18px;
   }
 }
 @media (max-width: 768px) {
