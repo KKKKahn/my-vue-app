@@ -83,7 +83,7 @@
 </template>
 
 <script>
-import { ref, watch, onMounted } from 'vue';
+import { ref, watch, onMounted, onUnmounted } from 'vue';
 import { auth, googleProvider } from '../firebase'; 
 import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth'; 
 import { useRouter } from 'vue-router';
@@ -97,6 +97,7 @@ export default {
     const isLoginLoading = ref(false);
     const isGoogleLoading = ref(false);
     const router = useRouter();
+    const passwordInput = ref(null); // 引用密码输入框
 
     // 处理表单提交
     const handleFormSubmit = async () => {
@@ -129,6 +130,10 @@ export default {
     // 切换到密码输入步骤
     const goToPasswordStep = () => {
       step.value = 'password';
+      // 聚焦密码输入框，触发键盘弹出（尤其在移动设备上）
+      setTimeout(() => {
+        passwordInput.value?.focus();
+      }, 300);
     };
 
     // 返回到邮箱输入步骤
@@ -145,13 +150,22 @@ export default {
     });
 
     // 在组件挂载时检查密码字段是否已被填充
+    let checkInterval = null;
     onMounted(() => {
       // 延迟检查，以确保浏览器完成自动填充
-      setTimeout(() => {
-        if (password.value) {
+      checkInterval = setInterval(() => {
+        if (passwordInput.value && passwordInput.value.value) {
+          password.value = passwordInput.value.value;
           step.value = 'password';
+          clearInterval(checkInterval);
         }
-      }, 500); // 根据需要调整延迟时间
+      }, 500); // 每500ms检查一次
+    });
+
+    onUnmounted(() => {
+      if (checkInterval) {
+        clearInterval(checkInterval);
+      }
     });
 
     return {
@@ -163,7 +177,8 @@ export default {
       handleFormSubmit,
       loginWithGoogle,
       goToPasswordStep,
-      goBackToEmailStep
+      goBackToEmailStep,
+      passwordInput, // 绑定到密码输入框的 ref
     };
   }
 };
