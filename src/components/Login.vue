@@ -152,20 +152,22 @@ export default {
     // 在组件挂载时检查密码字段是否已被填充
     let checkInterval = null;
     onMounted(() => {
-      // 延迟检查，以确保浏览器完成自动填充
+      // 使用更短的间隔频率来检测密码自动填充
       checkInterval = setInterval(() => {
         if (passwordInput.value && passwordInput.value.value) {
           password.value = passwordInput.value.value;
           step.value = 'password';
           clearInterval(checkInterval);
         }
-      }, 500); // 每500ms检查一次
+      }, 100); // 每100ms检查一次
+      // 设置一个超时，避免无限期检查
+      setTimeout(() => {
+        if (checkInterval) clearInterval(checkInterval);
+      }, 5000); // 最多检查5秒
     });
 
     onUnmounted(() => {
-      if (checkInterval) {
-        clearInterval(checkInterval);
-      }
+      if (checkInterval) clearInterval(checkInterval);
     });
 
     return {
