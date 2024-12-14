@@ -1,6 +1,5 @@
 <template>
   <div class="auto-container">
-        <img src="../assets/icons/kahn.svg" alt="Kahn 图标" class="kahn-icon" />
         <h1 class="auth-title">注册</h1>
         <form @submit.prevent="register">
           <div class="input-group">

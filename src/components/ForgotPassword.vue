@@ -28,9 +28,9 @@
       </button>
     </form>
 
-    <p class="back-to-login">
-      <router-link to="/login">返回登录</router-link>
-    </p>
+    <p class="login-prompt">
+          想起来了？<router-link to="/login" class="login-link">登录</router-link>
+        </p>
   </div>
 </template>
 
