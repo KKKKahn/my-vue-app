@@ -7,19 +7,26 @@ import Search from '../pages/Search.vue';
 import Tools from '../pages/Tools.vue';
 import Login from '../components/Login.vue';
 import Register from '../components/Register.vue';
+import PhoneLogin from '../components/PhoneLogin.vue'; // 导入 PhoneLogin 组件
+import ForgotPassword from '../components/ForgotPassword.vue'; // 导入 ForgotPassword 组件
 import { auth } from '../firebase';
 
 const routes = [
   { path: '/', redirect: '/home' },
-  { path: '/home', component: Home, meta: { requiresAuth: true } },
-  { path: '/about', component: About },
-  { path: '/contact', component: Contact },
-  { path: '/search', component: Search },
-  { path: '/tools', component: Tools },
-  { path: '/login', component: Login },
-  { path: '/register', component: Register }
+  { 
+    path: '/home', 
+    component: Home, 
+    meta: { requiresAuth: true } 
+  },
+  { path: '/about', component: () => import('../pages/About.vue') },
+  { path: '/contact', component: () => import('../pages/Contact.vue') },
+  { path: '/search', component: () => import('../pages/Search.vue') },
+  { path: '/tools', component: () => import('../pages/Tools.vue') },
+  { path: '/login', component: () => import('../components/Login.vue') },
+  { path: '/register', component: () => import('../components/Register.vue') },
+  { path: '/phone-login', component: () => import('../components/PhoneLogin.vue') }, // 懒加载
+  { path: '/forgot-password', component: () => import('../components/ForgotPassword.vue') }, // 懒加载
 ];
-
 const router = createRouter({
   history: createWebHistory(),
   routes

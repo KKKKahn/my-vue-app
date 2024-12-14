@@ -1,95 +1,46 @@
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-body {
-  margin: 0;
+/* 🔹 通用容器样式 */
+.auth-container {
+  width: 100%;
+  background-color: #0d1117; 
   display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  overflow-y: auto; 
+  padding: 16px;
+  box-sizing: border-box; 
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+.form-container {
+  width: 100%;
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px 0;
+  gap: 16px;
 }
 
 .card {
   padding: 2em;
 }
 
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0rem;
-  text-align: center;
-}
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-}
-
-
-
-/* 所有页面 */
-/* src/assets/styles.css */
-.content-wrapper {
-  padding-top: 30px;
+/* 🔹 调整 content-wrapper 的样式 */
+.form{
+  width: 100%;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  height: 100%;
+  padding: 16px 0;
+  gap: 16px;
 }
-/* 共享输入框样式 */
+
+
+
+
+/* 🔹 共享输入框样式 */
 .input-field {
   width: 100%; 
   padding: 15px 20px;
@@ -116,69 +67,11 @@ button:focus-visible {
   border-color: #8e44ad; 
 }
 
-/* 共享按钮样式 */
-.button {
-  width: 100%; 
-  background-color: #6c5ce7;
-  color: #ffffff;
-  font-size: 18px;
-  border: none;
-  padding: 14px 0;
-  border-radius: 12px; 
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-align: center;
-  box-sizing: border-box; 
-  position: relative;
-}
 
-.button:hover {
-  background-color: #8e44ad;
-}
 
-.button:disabled {
-  background-color: #444; 
-  cursor: not-allowed; 
-}
 
-/* 加载动画 */
-.loader {
-  width: 20px;
-  height: 20px;
-  border: 3px solid #ffffff;
-  border-radius: 50%;
-  border-top-color: #6c5ce7;
-  animation: spin 1s infinite linear;
-  display: inline-block;
-}
 
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-/* 通用容器样式 */
-.auth-container {
-  width: 100%;
-  background-color: #0d1117; 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-
-.form-container {
-  width: 100%;
-  max-width: 400px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
+/* 🔹 注册页面样式 */
 .auth-title {
   font-size: 32px;
   color: #ffffff;
@@ -187,9 +80,72 @@ button:focus-visible {
   text-align: center;
 }
 
+.kahn-icon {
+  width: 100px;
+  height: 100px;
+}
+
+.register-button {
+  width: 100%;
+  background-color: #6c5ce7;
+  color: #ffffff;
+  font-size: 18px;
+  border: none;
+  padding: 14px 0;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.register-button:hover {
+  background-color: #8e44ad;
+}
+
+.login-prompt {
+  color: #e1e1e1;
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+.login-link {
+  color: #6c5ce7;
+  text-decoration: none;
+}
+
+.login-link:hover {
+  text-decoration: underline;
+}
+
+/* 🔹 输入组样式 */
 .input-group {
   width: 100%;
   margin-bottom: 20px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 15px 20px;
+  font-size: 16px;
+  border: 2px solid #3e3e42;
+  border-radius: 12px;
+  background-color: #1e1e24; 
+  color: #ffffff;
+  outline: none;
+  box-sizing: border-box; 
+  transition: all 0.3s ease;
+}
+
+.input-group input::placeholder {
+  color: #b1b1b1;
+}
+
+.input-group input:focus {
+  border-color: #6c5ce7; 
+  background-color: #1c1f26; 
+}
+
+.input-group input:hover {
+  border-color: #8e44ad; 
 }
 
 .forgot-password-link,
@@ -213,87 +169,3 @@ button:focus-visible {
   text-decoration: underline;
 }
 
-
-
-
-
-
-/* 注册页面 */
-.kahn-icon {
-  width: 100px; /* 图标宽度 */
-  height: 100px; /* 图标高度 */
-}
-/* 确保 auth-container 覆盖整个屏幕，并使用与 body 相同的背景色 */
-
-
-
-form {
-  width: 100%;
-  max-width: 360px;
-  display: flex;
-  flex-direction: column;
-}
-
-.input-group {
-  width: 100%;
-  margin-bottom: 20px;
-}
-
-.input-group input {
-  width: 100%;
-  padding: 15px 20px;
-  font-size: 16px;
-  border: 2px solid #3e3e42;
-  border-radius: 12px; /* 圆角边框 */
-  background-color: #1e1e24; /* 深色背景，和页面背景相呼应 */
-  color: #ffffff;
-  outline: none;
-  box-sizing: border-box; /* 关键: 确保 padding 和 border 在 width 中 */
-  transition: all 0.3s ease;
-}
-
-.input-group input::placeholder {
-  color: #b1b1b1;
-}
-
-.input-group input:focus {
-  border-color: #6c5ce7; /* 聚焦时的高亮边框颜色 */
-  background-color: #1c1f26; /* 聚焦时的背景色 */
-}
-
-.input-group input:hover {
-  border-color: #8e44ad; /* 悬浮时的边框颜色 */
-}
-
-.register-button {
-  width: 100%; /* 按钮的宽度与输入框一致 */
-  background-color: #6c5ce7;
-  color: #ffffff;
-  font-size: 18px;
-  border: none;
-  padding: 14px 0;
-  border-radius: 12px; /* 按钮圆角，和输入框的边框一致 */
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-align: center;
-  box-sizing: border-box; /* 关键: 确保 padding 和 border 在 width 中 */
-}
-
-.register-button:hover {
-  background-color: #8e44ad;
-}
-
-.login-prompt {
-  color: #e1e1e1;
-  margin-top: 20px;
-  font-size: 14px;
-}
-
-.login-link {
-  color: #6c5ce7;
-  text-decoration: none;
-}
-
-.login-link:hover {
-  text-decoration: underline;
-}

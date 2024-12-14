@@ -31,60 +31,149 @@ export default {
 </script>
 
 <style>
-/* 全局样式 */
-body {
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html, body {
+  height: 100%;
   margin: 0;
+}
+
+body {
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
   font-family: 'Inter', sans-serif;
   background-color: #0d1117;
   color: #e1e1e1;
 }
 
-#app {
-  text-align: center;
-  width: 90%;
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
 }
-
-/* 确保 body、html 和 #app 填充整个屏幕，背景色为 #0d1117 */
-body, html, #app {
-  overflow: hidden; /* 禁止页面滚动 */
-  touch-action: none; /* 禁止触摸屏上下滑动 */
-}
-
-
-
-.content-wrapper {
-  padding-top: 30px; /* 确保内容不被导航栏遮挡 */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%; 
+a:hover {
+  color: #535bf2;
 }
 
 h1, h2, h3, h4, h5, h6 {
   color: #ffffff;
 }
 
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}
+#app {
+  text-align: center;
+  width: 90%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0rem;
+}
+
+
+
+
+
+
+/* 🔹 按钮样式 */
 button {
-  background: linear-gradient(90deg, #6c5ce7 0%, #0984e3 100%);
-  color: white;
-  border: none;
-  padding: 12px 20px;
-  font-size: 16px;
   border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: border-color 0.25s;
 }
 
 button:hover {
-  background: linear-gradient(90deg, #8e44ad 0%, #3498db 100%);
+  border-color: #646cff;
 }
 
-a {
-  color: #6c5ce7;
-  text-decoration: none;
+button:focus, button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
 }
 
-a:hover {
-  text-decoration: underline;
+.button {
+  width: 100%; 
+  background-color: #5f5e695d;
+  color: #ffffff;
+  font-size: 18px;
+  border: none;
+  padding: 14px 0;
+  border-radius: 12px; 
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  box-sizing: border-box; 
+}
+
+.button:hover {
+  background-color: #8e44ad;
+}
+
+.button:disabled {
+  background-color: #444; 
+  cursor: not-allowed; 
+}
+
+/* 🔹 加载动画 */
+.loader {
+  width: 20px;
+  height: 20px;
+  border: 3px solid #ffffff;
+  border-radius: 50%;
+  border-top-color: #6c5ce7;
+  animation: spin 1s infinite linear;
+  display: inline-block;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.content-wrapper {
+  width: 100%;
+  max-width: 400px; /* 设置最大宽度 */
+  padding-top: 30px;
+  margin: 0 auto; /* 居中对齐 */
+  display: block; /* 保持块级元素 */
+  height: 100%;
+  box-sizing: border-box; /* 包括内边距在内 */
 }
 </style>

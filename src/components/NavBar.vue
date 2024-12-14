@@ -166,7 +166,7 @@ export default {
 }
 
 .logout-button:hover {
-  background: linear-gradient(90deg, #8e44ad 0%, #3498db 100%);
+  background: rgb(123, 123, 123);
 }
 
 .login-button {
@@ -180,7 +180,7 @@ export default {
 }
 
 .login-button:hover {
-  background: linear-gradient(90deg, #8e44ad 0%, #3498db 100%);
+  background: rgba(109, 109, 109, 0.201);
 }
 
 .nav-link {
@@ -287,7 +287,7 @@ export default {
 
 .mobile-login-button:hover, 
 .mobile-logout-button:hover {
-  background: linear-gradient(90deg, #8e44ad 0%, #3498db 100%);
+  background: black;
 }
 
 .desktop-only {
@@ -348,7 +348,7 @@ export default {
 
   .mobile-logout-button:hover, 
   .mobile-login-button:hover {
-    background: linear-gradient(90deg, #8e44ad 0%, #3498db 100%);
+    background: rgb(112, 112, 112);
   }
 }
 
