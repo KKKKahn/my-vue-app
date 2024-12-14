@@ -13,6 +13,7 @@
               placeholder="请输入电子邮件" 
               required 
               autocomplete="email"
+              name="email"
               class="input-field" 
             />
           </div>
@@ -37,6 +38,7 @@
               placeholder="请输入密码" 
               required 
               autocomplete="current-password"
+              name="password"
               class="input-field" 
             />
           </div>
