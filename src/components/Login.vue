@@ -62,7 +62,7 @@
         <!-- 仅在密码输入阶段显示忘记密码链接 -->
         <p class="info-links" v-if="step === 'password'">
           忘记密码？
-          <router-link to="/forgot-password">重置密码</router-link>
+          <router-link :to="{ path: '/forgot-password', query: { email: email } }">重置密码</router-link>
         </p>
       </form>
 
