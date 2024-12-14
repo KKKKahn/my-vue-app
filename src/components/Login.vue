@@ -50,16 +50,18 @@
         </div>
       </transition>
 
-        <p class="info-links">
-          还没有账户？
-          <router-link to="/register" class="register-link">注册</router-link> 
-          <!-- | 
-          <router-link to="/phone-login" class="phone-login-link">使用手机号码登录</router-link> -->
+      <p class="info-links" v-if="step === 'email'">
+            还没有账户？
+            <router-link to="/register" class="register-link">注册</router-link> 
+            <!-- | 
+            <router-link to="/phone-login" class="phone-login-link">使用手机号码登录</router-link> -->
+          </p>
+        
+        <!-- 仅在密码输入阶段显示忘记密码链接 -->
+        <p class="info-links" v-if="step === 'password'">
+          忘记密码？
+          <router-link to="/forgot-password">重置密码</router-link>
         </p>
-
-        <a>
-          <router-link to="/forgot-password">忘记密码？</router-link>
-        </a>
       </form>
 
       <!-- 分割线 -->
