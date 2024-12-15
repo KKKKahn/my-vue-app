@@ -13,7 +13,8 @@
     <!-- 桌面端的登录/登出按钮 -->
     <div class="auth-button desktop-only">
       <div v-if="user" class="user-info">
-        <span class="user-role">{{ userRole }}</span> <!-- 🔥 显示角色 -->
+        <img :src="userAvatar" alt="用户头像" class="user-avatar" /> 
+        <span class="user-role">{{ userRole }}</span> 
         <span class="user-email">{{ user.email }}</span>
         <button class="logout-button" @click="logout">登出</button>
       </div>
@@ -43,8 +44,8 @@
       <!-- 右上角的用户信息 -->
       <div class="auth-container">
         <div v-if="user" class="user-info">
-          <img :src="userAvatar" alt="用户头像" class="user-avatar" /> <!-- 🔥 用户头像 -->
-          <span class="user-role">{{ userRole }}</span> <!-- 🔥 显示角色 -->
+          <img :src="userAvatar" alt="用户头像" class="user-avatar" /> 
+          <span class="user-role">{{ userRole }}</span> 
           <span class="user-email">{{ user.email }}</span>
           <button class="logout-button" @click="logout">登出</button>
         </div>
@@ -67,6 +68,7 @@ import { ref, onMounted } from 'vue';
 import { auth } from '../firebase';
 import { signOut } from 'firebase/auth';
 import { useRouter } from 'vue-router';
+import axios from 'axios'; // 🔥 引入 axios 以便发送请求
 
 export default {
   name: 'NavBar',
@@ -77,12 +79,12 @@ export default {
     const isMenuOpen = ref(false);
     const router = useRouter();
 
-    // 获取当前用户的角色和头像
+    // 📘 获取当前用户的角色和头像
     const getUserInfo = async (email) => {
       try {
-        const localUsers = await import('../localUsers.json'); // 🔥 动态导入 JSON
-        console.log('📂 读取的 localUsers.json 数据为:', localUsers.default);
-        const userData = localUsers.default.find((user) => user.email.toLowerCase() === email.toLowerCase()); // 🔥 不区分大小写
+        // 🔥 通过 JSON Server API 获取用户信息
+        const response = await axios.get(`http://localhost:3001/users?email=${email}`);
+        const userData = response.data[0]; // 只取第一个匹配的用户
         if (userData) {
           console.log(`✅ 找到了用户 ${email}，角色为 ${userData.role}`);
           return { role: userData.role, avatar: userData.avatar };
@@ -91,21 +93,22 @@ export default {
           return { role: '未知角色', avatar: 'https://example.com/default-avatar.png' };
         }
       } catch (error) {
-        console.error('❌ 读取 localUsers.json 文件失败:', error.message);
+        console.error('❌ 读取用户信息失败:', error.message);
         return { role: '未知角色', avatar: 'https://example.com/default-avatar.png' };
       }
     };
 
+    // 📘 当组件加载时，监听 Firebase 的登录状态
     onMounted(() => {
       auth.onAuthStateChanged(async (currentUser) => {
         if (currentUser) {
           console.log('当前登录用户的 email:', currentUser.email);
-          user.value = currentUser; // 🔥 确保 user 变量被赋值
+          user.value = currentUser; 
           const { role, avatar } = await getUserInfo(currentUser.email);
           userRole.value = role;
           userAvatar.value = avatar;
         } else {
-          user.value = null; // 🔥 当没有用户时，确保 user 为空
+          user.value = null; 
         }
       });
     });
@@ -122,8 +125,8 @@ export default {
       try {
         await signOut(auth);
         user.value = null;
-        userRole.value = ''; // 🔥 清空用户角色
-        userAvatar.value = ''; // 🔥 清空用户头像
+        userRole.value = ''; 
+        userAvatar.value = ''; 
         router.push('/login');
       } catch (error) {
         alert(error.message);
@@ -132,8 +135,8 @@ export default {
 
     return {
       user,
-      userRole, // 🔥 将用户角色传入模板
-      userAvatar, // 🔥 将用户头像传入模板
+      userRole, 
+      userAvatar, 
       isMenuOpen,
       toggleMenu,
       closeMenu,
@@ -144,6 +147,7 @@ export default {
 </script>
 
 <style scoped>
+
 
 
 .user-avatar {

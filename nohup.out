@@ -1,0 +1,17 @@
+--watch/-w can be omitted, JSON Server 1+ watches for file changes by default
+File /var/www/vue-app/localUsers.json not found
+--watch/-w can be omitted, JSON Server 1+ watches for file changes by default
+JSON Server started on PORT :3001
+Press CTRL-C to stop
+Watching ./localUsers.json...
+
+♡⸜(˶˃ ᵕ ˂˶)⸝♡
+
+Index:
+http://localhost:3001/
+
+Static files:
+Serving ./public directory if it exists
+
+Endpoints:
+http://0.0.0.0:3001/users
