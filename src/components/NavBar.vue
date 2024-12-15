@@ -63,90 +63,84 @@
 </template>
 
 <script>
-import { ref, onMounted } from 'vue'
-import { auth } from '../firebase'
-import { signOut } from 'firebase/auth'
-import { useRouter } from 'vue-router'
+import { ref, onMounted } from 'vue';
+import { auth } from '../firebase';
+import { signOut } from 'firebase/auth';
+import { useRouter } from 'vue-router';
 
 export default {
   name: 'NavBar',
   setup() {
-    const user = ref(null)
-    const userRole = ref('') // 🔥 存储用户的角色
-    const userAvatar = ref('') // 🔥 存储用户的头像
-    const isMenuOpen = ref(false)
-    const router = useRouter()
+    const user = ref(null);
+    const userRole = ref(''); // 🔥 存储用户的角色
+    const userAvatar = ref(''); // 🔥 存储用户的头像
+    const isMenuOpen = ref(false);
+    const router = useRouter();
 
     // 获取当前用户的角色和头像
     const getUserInfo = async (email) => {
       try {
-        const response = await fetch('/localUsers.json') // 🔥 使用 fetch 而不是 import
-        const localUsers = await response.json()
-        console.log('📂 读取的 localUsers.json 数据为:', localUsers)
-        const userData = localUsers.find((user) => user.email.toLowerCase() === email.toLowerCase()) // 🔥 不区分大小写
+        const localUsers = await import('../localUsers.json'); // 🔥 动态导入 JSON
+        console.log('📂 读取的 localUsers.json 数据为:', localUsers.default);
+        const userData = localUsers.default.find((user) => user.email.toLowerCase() === email.toLowerCase()); // 🔥 不区分大小写
         if (userData) {
-          console.log(`✅ 找到了用户 ${email}，角色为 ${userData.role}`)
-          return { role: userData.role, avatar: userData.avatar }
+          console.log(`✅ 找到了用户 ${email}，角色为 ${userData.role}`);
+          return { role: userData.role, avatar: userData.avatar };
         } else {
-          console.warn(`⚠️ 没有找到用户 ${email} 的角色信息`)
-          return { role: '未知角色', avatar: 'https://example.com/default-avatar.png' }
+          console.warn(`⚠️ 没有找到用户 ${email} 的角色信息`);
+          return { role: '未知角色', avatar: 'https://example.com/default-avatar.png' };
         }
       } catch (error) {
-        console.error('❌ 读取 localUsers.json 文件失败:', error.message)
-        return { role: '未知角色', avatar: 'https://example.com/default-avatar.png' }
+        console.error('❌ 读取 localUsers.json 文件失败:', error.message);
+        return { role: '未知角色', avatar: 'https://example.com/default-avatar.png' };
       }
-    }
+    };
 
     onMounted(() => {
       auth.onAuthStateChanged(async (currentUser) => {
         if (currentUser) {
-          console.log('当前登录用户的 email:', currentUser.email)
-          user.value = currentUser // 🔥 确保 user 变量被赋值
-          localStorage.setItem('userEmail', currentUser.email) // 🔥 存储 email 到 localStorage
-          const { role, avatar } = await getUserInfo(currentUser.email)
-          userRole.value = role
-          userAvatar.value = avatar
+          console.log('当前登录用户的 email:', currentUser.email);
+          user.value = currentUser; // 🔥 确保 user 变量被赋值
+          const { role, avatar } = await getUserInfo(currentUser.email);
+          userRole.value = role;
+          userAvatar.value = avatar;
         } else {
-          user.value = null // 🔥 当没有用户时，确保 user 为空
-          localStorage.removeItem('userEmail') // 清除 localStorage 中的 email
+          user.value = null; // 🔥 当没有用户时，确保 user 为空
         }
-      })
+      });
+    });
 
-      const savedEmail = localStorage.getItem('userEmail')
-      if (savedEmail) {
-        console.log('📂 从 localStorage 中加载用户 email:', savedEmail)
-        getUserInfo(savedEmail).then(({ role, avatar }) => {
-          userRole.value = role
-          userAvatar.value = avatar
-          user.value = { email: savedEmail } // 设置一个假的 user 对象
-        })
-      }
-    })
+    const toggleMenu = () => {
+      isMenuOpen.value = !isMenuOpen.value;
+    };
+
+    const closeMenu = () => {
+      isMenuOpen.value = false;
+    };
 
     const logout = async () => {
       try {
-        await signOut(auth)
-        user.value = null
-        userRole.value = ''
-        userAvatar.value = ''
-        localStorage.removeItem('userEmail')
-        router.push('/login')
+        await signOut(auth);
+        user.value = null;
+        userRole.value = ''; // 🔥 清空用户角色
+        userAvatar.value = ''; // 🔥 清空用户头像
+        router.push('/login');
       } catch (error) {
-        alert(error.message)
+        alert(error.message);
       }
-    }
+    };
 
     return {
       user,
-      userRole,
-      userAvatar,
+      userRole, // 🔥 将用户角色传入模板
+      userAvatar, // 🔥 将用户头像传入模板
       isMenuOpen,
-      toggleMenu: () => (isMenuOpen.value = !isMenuOpen.value),
-      closeMenu: () => (isMenuOpen.value = false),
+      toggleMenu,
+      closeMenu,
       logout
-    }
+    };
   }
-}
+};
 </script>
 
 <style scoped>
