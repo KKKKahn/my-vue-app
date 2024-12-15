@@ -24,7 +24,7 @@ app.post('/api/addUser', (req, res) => {
     return res.status(400).json({ message: '缺少必要的用户信息' });
   }
 
-  const filePath = path.join(__dirname, 'public', 'localUsers.json');
+  const filePath = path.join(__dirname, 'src', 'localUsers.json');
 
   // 读取现有用户数据
   fs.readFile(filePath, 'utf8', (err, data) => {
