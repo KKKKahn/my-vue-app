@@ -74,23 +74,29 @@ export default {
   name: 'NavBar',
   setup() {
     const user = ref(null);
-    const userRole = ref(''); // 🔥 存储用户的角色
-    const userAvatar = ref(''); // 🔥 存储用户的头像
+    const userRole = ref('加载中...'); // 🔥 初始角色显示为“加载中...”
+    const userAvatar = ref('https://example.com/default-avatar.png'); 
     const isMenuOpen = ref(false);
     const router = useRouter();
 
-    // 📘 获取当前用户的角色和头像
-    const getUserInfo = async (email) => {
+    // 📘 获取当前用户的角色和头像，增加重试机制
+    const getUserInfo = async (email, retryCount = 5) => {
       try {
         // 🔥 通过 JSON Server API 获取用户信息
         const response = await axios.get(`http://localhost:3001/users?email=${email}`);
-        const userData = response.data[0]; // 只取第一个匹配的用户
+        const userData = response.data[0]; 
         if (userData) {
           console.log(`✅ 找到了用户 ${email}，角色为 ${userData.role}`);
           return { role: userData.role, avatar: userData.avatar };
         } else {
-          console.warn(`⚠️ 没有找到用户 ${email} 的角色信息`);
-          return { role: '未知角色', avatar: 'https://example.com/default-avatar.png' };
+          if (retryCount > 0) {
+            console.warn(`⚠️ 没有找到用户 ${email} 的角色信息，正在重试...`);
+            await new Promise((resolve) => setTimeout(resolve, 1000)); // 等待 1 秒
+            return getUserInfo(email, retryCount - 1); // 重试
+          } else {
+            console.warn(`⚠️ 重试 5 次后仍未找到用户 ${email} 的角色信息`);
+            return { role: '未知角色', avatar: 'https://example.com/default-avatar.png' };
+          }
         }
       } catch (error) {
         console.error('❌ 读取用户信息失败:', error.message);
@@ -98,7 +104,6 @@ export default {
       }
     };
 
-    // 📘 当组件加载时，监听 Firebase 的登录状态
     onMounted(() => {
       auth.onAuthStateChanged(async (currentUser) => {
         if (currentUser) {
@@ -125,7 +130,7 @@ export default {
       try {
         await signOut(auth);
         user.value = null;
-        userRole.value = ''; 
+        userRole.value = '加载中...'; 
         userAvatar.value = ''; 
         router.push('/login');
       } catch (error) {
