@@ -49,7 +49,7 @@ export default {
         await axios.post('http://localhost:3001/users', newUser);
         console.log('✅ 成功将用户存储到 localUsers.json:', newUser);
 
-        // 4️⃣ 强制刷新页面中的用户角色和头像信息
+        // 4️⃣ 触发 onAuthStateChanged 事件，强制刷新当前的导航栏中的用户状态
         auth.onAuthStateChanged((currentUser) => {
           if (currentUser) {
             console.log('🌐 手动触发的 onAuthStateChanged 事件: 当前用户:', currentUser.email);
