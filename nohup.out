@@ -15,3 +15,194 @@ Serving ./public directory if it exists
 
 Endpoints:
 http://0.0.0.0:3001/users
+🚀 服务器已启动，监听端口: http://localhost:3001
+node:events:491
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use :::3001
+    at Server.setupListenHandle [as _listen2] (node:net:1912:16)
+    at listenInCluster (node:net:1969:12)
+    at Server.listen (node:net:2074:7)
+    at Function.listen (/Users/kahn/my-vue-app/node_modules/express/lib/application.js:635:24)
+    at file:///Users/kahn/my-vue-app/server/server.js:51:5
+    at ModuleJob.run (node:internal/modules/esm/module_job:271:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:547:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:116:5)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1948:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+  code: 'EADDRINUSE',
+  errno: -48,
+  syscall: 'listen',
+  address: '::',
+  port: 3001
+}
+
+Node.js v23.3.0
+node:events:491
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use :::3001
+    at Server.setupListenHandle [as _listen2] (node:net:1912:16)
+    at listenInCluster (node:net:1969:12)
+    at Server.listen (node:net:2074:7)
+    at Function.listen (/Users/kahn/my-vue-app/node_modules/express/lib/application.js:635:24)
+    at file:///Users/kahn/my-vue-app/server/server.js:51:5
+    at ModuleJob.run (node:internal/modules/esm/module_job:271:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:547:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:116:5)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1948:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+  code: 'EADDRINUSE',
+  errno: -48,
+  syscall: 'listen',
+  address: '::',
+  port: 3001
+}
+
+Node.js v23.3.0
+node:events:491
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use :::3001
+    at Server.setupListenHandle [as _listen2] (node:net:1912:16)
+    at listenInCluster (node:net:1969:12)
+    at Server.listen (node:net:2074:7)
+    at Function.listen (/Users/kahn/my-vue-app/node_modules/express/lib/application.js:635:24)
+    at file:///Users/kahn/my-vue-app/server/server.js:51:5
+    at ModuleJob.run (node:internal/modules/esm/module_job:271:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:547:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:116:5)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1948:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+  code: 'EADDRINUSE',
+  errno: -48,
+  syscall: 'listen',
+  address: '::',
+  port: 3001
+}
+
+Node.js v23.3.0
+✅ 成功将新用户写入 localUsers.json: {
+  email: '337876728@qq.com',
+  role: 'Member',
+  avatar: 'https://www.kahn.love/wp-content/uploads/2024/11/2.webp'
+}
+✅ 成功将新用户写入 localUsers.json: {
+  email: '728@qq.com',
+  role: 'Member',
+  avatar: 'https://www.kahn.love/wp-content/uploads/2024/11/2.webp'
+}
+🚀 服务器已启动，监听端口: http://localhost:3001
+❌ 读取 localUsers.json 失败: Error: ENOENT: no such file or directory, open '/Users/kahn/my-vue-app/public/localUsers.json'
+    at async open (node:internal/fs/promises:639:25)
+    at async Object.readFile (node:internal/fs/promises:1239:14)
+    at async file:///Users/kahn/my-vue-app/server/server.js:28:18 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/kahn/my-vue-app/public/localUsers.json'
+}
+❌ 读取 localUsers.json 失败: Error: ENOENT: no such file or directory, open '/Users/kahn/my-vue-app/public/localUsers.json'
+    at async open (node:internal/fs/promises:639:25)
+    at async Object.readFile (node:internal/fs/promises:1239:14)
+    at async file:///Users/kahn/my-vue-app/server/server.js:28:18 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/kahn/my-vue-app/public/localUsers.json'
+}
+❌ 读取 localUsers.json 失败: Error: ENOENT: no such file or directory, open '/Users/kahn/my-vue-app/public/localUsers.json'
+    at async open (node:internal/fs/promises:639:25)
+    at async Object.readFile (node:internal/fs/promises:1239:14)
+    at async file:///Users/kahn/my-vue-app/server/server.js:28:18 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/kahn/my-vue-app/public/localUsers.json'
+}
+❌ 读取 localUsers.json 失败: Error: ENOENT: no such file or directory, open '/Users/kahn/my-vue-app/public/localUsers.json'
+    at async open (node:internal/fs/promises:639:25)
+    at async Object.readFile (node:internal/fs/promises:1239:14)
+    at async file:///Users/kahn/my-vue-app/server/server.js:28:18 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/kahn/my-vue-app/public/localUsers.json'
+}
+📂 当前 localUsers.json 路径为: /Users/kahn/my-vue-app/server/localUsers.json
+node:events:491
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use :::3001
+    at Server.setupListenHandle [as _listen2] (node:net:1912:16)
+    at listenInCluster (node:net:1969:12)
+    at Server.listen (node:net:2074:7)
+    at Function.listen (/Users/kahn/my-vue-app/node_modules/express/lib/application.js:635:24)
+    at file:///Users/kahn/my-vue-app/server/server.js:69:5
+    at ModuleJob.run (node:internal/modules/esm/module_job:271:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:547:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:116:5)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1948:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+  code: 'EADDRINUSE',
+  errno: -48,
+  syscall: 'listen',
+  address: '::',
+  port: 3001
+}
+
+Node.js v23.3.0
+❌ 读取 localUsers.json 失败: Error: ENOENT: no such file or directory, open '/Users/kahn/my-vue-app/public/localUsers.json'
+    at async open (node:internal/fs/promises:639:25)
+    at async Object.readFile (node:internal/fs/promises:1239:14)
+    at async file:///Users/kahn/my-vue-app/server/server.js:28:18 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/kahn/my-vue-app/public/localUsers.json'
+}
+✅ 成功将新用户写入 localUsers.json: {
+  email: '28@qq.com',
+  role: 'Member',
+  avatar: 'https://www.kahn.love/wp-content/uploads/2024/11/2.webp'
+}
+❌ 读取 localUsers.json 失败: Error: ENOENT: no such file or directory, open '/Users/kahn/my-vue-app/public/localUsers.json'
+    at async open (node:internal/fs/promises:639:25)
+    at async Object.readFile (node:internal/fs/promises:1239:14)
+    at async file:///Users/kahn/my-vue-app/server/server.js:28:18 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/kahn/my-vue-app/public/localUsers.json'
+}
+❌ 读取 localUsers.json 失败: Error: ENOENT: no such file or directory, open '/Users/kahn/my-vue-app/public/localUsers.json'
+    at async open (node:internal/fs/promises:639:25)
+    at async Object.readFile (node:internal/fs/promises:1239:14)
+    at async file:///Users/kahn/my-vue-app/server/server.js:28:18 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/kahn/my-vue-app/public/localUsers.json'
+}
+❌ 读取 localUsers.json 失败: Error: ENOENT: no such file or directory, open '/Users/kahn/my-vue-app/public/localUsers.json'
+    at async open (node:internal/fs/promises:639:25)
+    at async Object.readFile (node:internal/fs/promises:1239:14)
+    at async file:///Users/kahn/my-vue-app/server/server.js:28:18 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/kahn/my-vue-app/public/localUsers.json'
+}
+✅ 成功将新用户写入 localUsers.json: {
+  email: '8@qq.com',
+  role: 'Member',
+  avatar: 'https://www.kahn.love/wp-content/uploads/2024/11/2.webp'
+}

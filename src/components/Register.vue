@@ -8,7 +8,10 @@
       <div class="input-group">
         <input type="password" v-model="password" placeholder="密码" required />
       </div>
-      <button type="submit" class="button">注册</button>
+      <button type="submit" class="button" :disabled="isLoading">
+        <span v-if="!isLoading">注册</span>
+        <span v-else>处理中...</span>
+      </button>
     </form>
 
     <p class="login-prompt">
@@ -29,9 +32,12 @@ export default {
   setup() {
     const email = ref('');
     const password = ref('');
+    const isLoading = ref(false);
     const router = useRouter();
 
     const register = async () => {
+      isLoading.value = true;
+
       try {
         // 1️⃣ 在 Firebase 中创建新用户
         const userCredential = await createUserWithEmailAndPassword(auth, email.value, password.value);
@@ -45,28 +51,37 @@ export default {
           avatar: 'https://www.kahn.love/wp-content/uploads/2024/11/2.webp'
         };
 
-        // 3️⃣ 向 json-server 发送 POST 请求，将新用户添加到 localUsers.json
-        await axios.post('http://localhost:3001/users', newUser);
-        console.log('✅ 成功将用户存储到 localUsers.json:', newUser);
+        // 3️⃣ 使用动态 URL（区分本地和服务器环境）
+        const apiBaseUrl = window.location.origin.includes('localhost')
+          ? 'http://localhost:3001/api/users'
+          : 'https://new.kahn.love/api/users';
 
-        // 4️⃣ 强制刷新页面中的用户角色和头像信息
-        auth.onAuthStateChanged((currentUser) => {
-          if (currentUser) {
-            console.log('🌐 手动触发的 onAuthStateChanged 事件: 当前用户:', currentUser.email);
-          }
-        });
+        // 4️⃣ 向服务器端 API 发送 POST 请求
+        const response = await axios.post(apiBaseUrl, newUser);
+        console.log('✅ 成功将用户存储到 localUsers.json:', response.data);
 
         // 5️⃣ 跳转到首页
         router.push('/home');
       } catch (error) {
         console.error('❌ 注册失败：', error);
-        alert('注册失败：' + error.message);
+        
+        if (error.response && error.response.status === 409) {
+          alert('❌ 注册失败：用户已存在');
+        } else if (error.response && error.response.status === 500) {
+          alert('❌ 注册失败：服务器错误，请稍后重试');
+        } else {
+          alert('❌ 注册失败：网络错误或其他未知错误');
+        }
+
+      } finally {
+        isLoading.value = false;
       }
     };
 
     return {
       email,
       password,
+      isLoading,
       register
     };
   }
@@ -74,5 +89,5 @@ export default {
 </script>
 
 <style scoped>
-/* 可根据需求添加样式 */
+
 </style>
