@@ -35,9 +35,9 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://localhost:3001', // 代理目标地址 (Node.js API 服务器)
-        changeOrigin: true, // 更改请求的来源标头
-        rewrite: (path) => path.replace(/^\/api/, '/api') // 保留路径
+        target: 'http://localhost:3001', // 目标服务器
+        changeOrigin: true, // 必须为 true
+        rewrite: (path) => path.replace(/^\/api/, '') // 移除 /api 前缀
       }
     }
   },

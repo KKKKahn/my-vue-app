@@ -78,12 +78,15 @@ export default {
     const userAvatar = ref('https://example.com/default-avatar.png'); 
     const isMenuOpen = ref(false);
     const router = useRouter();
+    const apiBaseUrl = import.meta.env.MODE === 'development' ? 'http://localhost:3001' : ''; // 🔥 确保在开发和生产中使用正确的 URL
 
     // 📘 获取当前用户的角色和头像，增加重试机制
     const getUserInfo = async (email, retryCount = 5) => {
       try {
-        console.log(`🌐 请求 URL: /api/users?email=${encodeURIComponent(email)}`);
-        const response = await axios.get('/api/users?email=' + encodeURIComponent(email));
+        const requestUrl = `${apiBaseUrl}/api/users?email=${encodeURIComponent(email)}`; // 🔥 生成动态 URL
+        console.log(`🌐 请求 URL: ${requestUrl}`);
+
+        const response = await axios.get(requestUrl);
         console.log('📂 API 返回的数据:', response.data);
         
         const userData = response.data?.[0] || {}; // 取出第一个用户
