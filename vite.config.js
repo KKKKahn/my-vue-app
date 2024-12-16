@@ -24,15 +24,5 @@ export default defineConfig({
         }
       }
     }
-  },
-  server: {
-    proxy: {
-      // 📌 将 /api/users 代理到 http://localhost:3001/api/users
-      '/api/users': {
-        target: 'http://localhost:3001',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api\/users/, '/api/users')
-      }
-    }
   }
 })
