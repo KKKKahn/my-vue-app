@@ -83,7 +83,7 @@ export default {
     const getUserInfo = async (email, retryCount = 5) => {
       try {
         // 🔥 通过 JSON Server API 获取用户信息
-        const response = await axios.get(`http://localhost:3001/api/users?email=${email}`);
+        const response = await axios.get('/api/users?email=' + email);
         const userData = response.data[0]; 
         if (userData) {
           console.log(`✅ 找到了用户 ${email}，角色为 ${userData.role}`);
