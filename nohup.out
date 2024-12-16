@@ -250,3 +250,8 @@ Node.js v23.3.0
   role: 'Member',
   avatar: 'https://www.kahn.love/wp-content/uploads/2024/11/2.webp'
 }
+✅ 成功将新用户写入 localUsers.json: {
+  email: '378767284@qq.com',
+  role: 'Member',
+  avatar: 'https://www.kahn.love/wp-content/uploads/2024/11/2.webp'
+}

@@ -83,21 +83,19 @@ export default {
     // 📘 获取当前用户的角色和头像，增加重试机制
     const getUserInfo = async (email, retryCount = 5) => {
       try {
-        const requestUrl = `${apiBaseUrl}/api/users?email=${encodeURIComponent(email)}`; // 🔥 生成动态 URL
-        console.log(`🌐 请求 URL: ${requestUrl}`);
-
-        const response = await axios.get(requestUrl);
+        console.log(`🌐 请求 URL: /api/users?email=${encodeURIComponent(email)}`);
+        const response = await axios.get(`/api/users?email=${encodeURIComponent(email)}`);
         console.log('📂 API 返回的数据:', response.data);
         
-        const userData = response.data?.[0] || {}; // 取出第一个用户
+        const userData = response.data?.[0] || {}; 
         if (userData && userData.role) {
           console.log(`✅ 找到了用户 ${email}，角色为 ${userData.role}`);
           return { role: userData.role, avatar: userData.avatar };
         } else {
           if (retryCount > 0) {
             console.warn(`⚠️ 没有找到用户 ${email} 的角色信息，正在重试...`);
-            await new Promise((resolve) => setTimeout(resolve, 1000)); // 等待 1 秒
-            return getUserInfo(email, retryCount - 1); // 递归重试
+            await new Promise((resolve) => setTimeout(resolve, 1000));
+            return getUserInfo(email, retryCount - 1);
           } else {
             console.warn(`⚠️ 重试 5 次后仍未找到用户 ${email} 的角色信息`);
             return { role: '未知角色', avatar: 'https://example.com/default-avatar.png' };
@@ -108,6 +106,8 @@ export default {
         return { role: '未知角色', avatar: 'https://example.com/default-avatar.png' };
       }
     };
+
+
 
     onMounted(() => {
       auth.onAuthStateChanged(async (currentUser) => {

@@ -27,17 +27,17 @@
 //   }
 // })
 
-import { defineConfig } from 'vite';
-import vue from '@vitejs/plugin-vue';
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
 
 export default defineConfig({
   plugins: [vue()],
   server: {
     proxy: {
       '/api': {
-        target: 'http://localhost:3001', // 目标服务器
-        changeOrigin: true, // 必须为 true
-        rewrite: (path) => path.replace(/^\/api/, '') // 移除 /api 前缀
+        target: 'http://localhost:3001', // 本地开发时的 Node.js API 服务器
+        changeOrigin: true, 
+        rewrite: (path) => path.replace(/^\/api/, '/api') 
       }
     }
   },
@@ -55,4 +55,4 @@ export default defineConfig({
       }
     }
   }
-});
+})
