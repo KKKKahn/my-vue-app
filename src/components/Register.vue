@@ -52,8 +52,8 @@ export default {
 
         // 3️⃣ 使用动态 URL（区分本地和服务器环境）
         const apiBaseUrl = window.location.origin.includes('localhost')
-          ? 'http://localhost:3001/api/users'
-          : 'https://new.kahn.love/api/users';
+          ? 'http://localhost:3001/users'
+          : 'https://new.kahn.love/users';
 
         // 4️⃣ 向服务器端 API 发送 POST 请求
         const response = await axios.post(apiBaseUrl, newUser);
