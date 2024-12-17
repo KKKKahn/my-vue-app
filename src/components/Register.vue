@@ -43,19 +43,19 @@ export default {
         const user = userCredential.user;
         console.log('✅ 成功创建用户:', user.email);
 
-        // 2️⃣ 在 localUsers.json 中保存用户的角色和头像
+        // 2️⃣ 在 Cloudflare Worker 中保存用户的角色和头像
         const newUser = {
           email: user.email,
           role: 'Member',
           avatar: 'https://www.kahn.love/wp-content/uploads/2024/11/2.webp'
         };
 
-        // 3️⃣ 使用动态 URL（区分本地和服务器环境）
-        const response = await axios.post('/api/users', newUser);
+        // 3️⃣ 发送 POST 请求到 Cloudflare Worker API，保存用户数据
+        const response = await axios.post('https://new.kahn.love/api/users', newUser);
         
-        console.log('✅ 成功将用户存储到 localUsers.json:', response.data);
+        console.log('✅ 成功将用户存储到服务器:', response.data);
 
-        // 5️⃣ 跳转到首页
+        // 4️⃣ 跳转到首页
         router.push('/home');
       } catch (error) {
         console.error('❌ 注册失败：', error);
@@ -67,7 +67,6 @@ export default {
         } else {
           alert('❌ 注册失败：网络错误或其他未知错误');
         }
-
       } finally {
         isLoading.value = false;
       }
