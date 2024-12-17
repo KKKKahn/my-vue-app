@@ -68,34 +68,39 @@ import { ref, onMounted } from 'vue';
 import { auth } from '../firebase';
 import { signOut } from 'firebase/auth';
 import { useRouter } from 'vue-router';
-import axios from 'axios'; // 🔥 引入 axios 以便发送请求
+import axios from 'axios'; // 引入 axios 以便发送请求
 
 export default {
   name: 'NavBar',
   setup() {
     const user = ref(null);
-    const userRole = ref('加载中...'); // 🔥 初始角色显示为“加载中...”
+    const userRole = ref('加载中...'); // 初始角色显示为“加载中...”
     const userAvatar = ref('https://example.com/default-avatar.png'); 
     const isMenuOpen = ref(false);
     const router = useRouter();
-    const apiBaseUrl = import.meta.env.MODE === 'development' ? 'http://localhost:3001' : ''; // 🔥 确保在开发和生产中使用正确的 URL
+    
+    // Cloudflare Worker API 地址
+    const apiBaseUrl = 'https://account.kahn.love/api/users'; // 这里填写 Cloudflare Worker API 地址
 
     // 📘 获取当前用户的角色和头像，增加重试机制
     const getUserInfo = async (email, retryCount = 5) => {
       try {
-        console.log(`🌐 请求 URL: /api/users?email=${encodeURIComponent(email)}`);
-        const response = await axios.get(`/api/users?email=${encodeURIComponent(email)}`);
+        console.log(`🌐 请求 URL: ${apiBaseUrl}?email=${encodeURIComponent(email)}`);
+        
+        // 向 Cloudflare Worker 发送 GET 请求，获取用户数据
+        const response = await axios.get(`${apiBaseUrl}?email=${encodeURIComponent(email)}`);
+        
         console.log('📂 API 返回的数据:', response.data);
         
-        const userData = response.data?.[0] || {}; 
+        const userData = response.data || {}; // 使用响应数据
         if (userData && userData.role) {
           console.log(`✅ 找到了用户 ${email}，角色为 ${userData.role}`);
           return { role: userData.role, avatar: userData.avatar };
         } else {
           if (retryCount > 0) {
             console.warn(`⚠️ 没有找到用户 ${email} 的角色信息，正在重试...`);
-            await new Promise((resolve) => setTimeout(resolve, 1000));
-            return getUserInfo(email, retryCount - 1);
+            await new Promise((resolve) => setTimeout(resolve, 1000)); // 等待 1 秒
+            return getUserInfo(email, retryCount - 1); // 递归重试
           } else {
             console.warn(`⚠️ 重试 5 次后仍未找到用户 ${email} 的角色信息`);
             return { role: '未知角色', avatar: 'https://example.com/default-avatar.png' };
@@ -107,18 +112,16 @@ export default {
       }
     };
 
-
-
     onMounted(() => {
       auth.onAuthStateChanged(async (currentUser) => {
         if (currentUser) {
           console.log('当前登录用户的 email:', currentUser.email);
-          user.value = currentUser; 
+          user.value = currentUser;
           const { role, avatar } = await getUserInfo(currentUser.email);
           userRole.value = role;
           userAvatar.value = avatar;
         } else {
-          user.value = null; 
+          user.value = null; // 如果没有用户登录，重置状态
         }
       });
     });
