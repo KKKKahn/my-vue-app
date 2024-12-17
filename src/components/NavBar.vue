@@ -63,7 +63,7 @@
   </nav>
 </template>
 
-<script>
+<!-- <script>
 import { ref, onMounted } from 'vue';
 import { auth } from '../firebase';
 import { signOut } from 'firebase/auth';
@@ -78,7 +78,6 @@ export default {
     const userAvatar = ref('https://example.com/default-avatar.png'); 
     const isMenuOpen = ref(false);
     const router = useRouter();
-    
     // Cloudflare Worker API 地址
     const apiBaseUrl = 'https://new.kahn.love/api/users'; // 这里填写 Cloudflare Worker API 地址
 
@@ -117,6 +116,131 @@ export default {
         if (currentUser) {
           console.log('当前登录用户的 email:', currentUser.email);
           user.value = currentUser;
+          const { role, avatar } = await getUserInfo(currentUser.email);
+          userRole.value = role;
+          userAvatar.value = avatar;
+        } else {
+          user.value = null; // 如果没有用户登录，重置状态
+        }
+      });
+    });
+
+    const toggleMenu = () => {
+      isMenuOpen.value = !isMenuOpen.value;
+    };
+
+    const closeMenu = () => {
+      isMenuOpen.value = false;
+    };
+
+    const logout = async () => {
+      try {
+        await signOut(auth);
+        user.value = null;
+        userRole.value = '加载中...'; 
+        userAvatar.value = ''; 
+        router.push('/login');
+      } catch (error) {
+        alert(error.message);
+      }
+    };
+
+    return {
+      user,
+      userRole, 
+      userAvatar, 
+      isMenuOpen,
+      toggleMenu,
+      closeMenu,
+      logout
+    };
+  }
+};
+</script> -->
+
+<script>
+import { ref, onMounted } from 'vue';
+import { auth } from '../firebase';
+import { signOut } from 'firebase/auth';
+import { useRouter } from 'vue-router';
+import axios from 'axios'; // 引入 axios 以便发送请求
+
+export default {
+  name: 'NavBar',
+  setup() {
+    const user = ref(null);
+    const userRole = ref('加载中...'); // 初始角色显示为“加载中...”
+    const userAvatar = ref('https://example.com/default-avatar.png'); 
+    const isMenuOpen = ref(false);
+    const router = useRouter();
+    // Cloudflare Worker API 地址
+    const apiBaseUrl = 'https://new.kahn.love/api/users'; // 这里填写 Cloudflare Worker API 地址
+
+    // 📘 获取当前用户的角色和头像，增加重试机制
+    const getUserInfo = async (email, retryCount = 5) => {
+      try {
+        console.log(`🌐 请求 URL: ${apiBaseUrl}?email=${encodeURIComponent(email)}`);
+        
+        // 向 Cloudflare Worker 发送 GET 请求，获取用户数据
+        const response = await axios.get(`${apiBaseUrl}?email=${encodeURIComponent(email)}`);
+        
+        console.log('📂 API 返回的数据:', response.data);
+        
+        const userData = response.data || {}; // 使用响应数据
+        if (userData && userData.role) {
+          console.log(`✅ 找到了用户 ${email}，角色为 ${userData.role}`);
+          return { role: userData.role, avatar: userData.avatar };
+        } else {
+          // 如果没有找到用户信息，则尝试重试
+          if (retryCount > 0) {
+            console.warn(`⚠️ 没有找到用户 ${email} 的角色信息，正在重试...`);
+            await new Promise((resolve) => setTimeout(resolve, 1000)); // 等待 1 秒
+            return getUserInfo(email, retryCount - 1); // 递归重试
+          } else {
+            console.warn(`⚠️ 重试 5 次后仍未找到用户 ${email} 的角色信息`);
+            
+            // 如果 KV 中没有找到用户，返回默认信息并将该用户添加到 Cloudflare KV
+            await createUserInKV(email);
+            return { role: 'Member', avatar: 'https://example.com/default-avatar.png' };
+          }
+        }
+      } catch (error) {
+        console.error('❌ 读取用户信息失败:', error.message);
+        
+        // 出现错误时返回默认角色和头像
+        await createUserInKV(email); // 创建用户并添加到 KV
+        return { role: 'Member', avatar: 'https://example.com/default-avatar.png' };
+      }
+    };
+
+    // 创建用户并将角色和头像信息存储到 Cloudflare KV
+    const createUserInKV = async (email) => {
+      try {
+        console.log(`🌐 创建新用户 ${email}，存储默认信息`);
+        const userData = {
+          role: 'Member',
+          avatar: 'https://example.com/default-avatar.png'
+        };
+        
+        // 向 Cloudflare Worker API 发送 POST 请求创建新用户
+        await axios.post(apiBaseUrl, {
+          email,
+          role: userData.role,
+          avatar: userData.avatar
+        });
+        console.log(`✅ 用户 ${email} 已成功添加到 Cloudflare KV`);
+      } catch (error) {
+        console.error('❌ 创建用户失败:', error.message);
+      }
+    };
+
+    onMounted(() => {
+      auth.onAuthStateChanged(async (currentUser) => {
+        if (currentUser) {
+          console.log('当前登录用户的 email:', currentUser.email);
+          user.value = currentUser;
+          
+          // 获取用户角色和头像信息
           const { role, avatar } = await getUserInfo(currentUser.email);
           userRole.value = role;
           userAvatar.value = avatar;
