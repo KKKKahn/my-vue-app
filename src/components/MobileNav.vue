@@ -207,23 +207,22 @@
   }
   
   
-
+  
   .mobile-menu {
-  position: fixed;
-  top: 0;
-  right: 0;
-  width: 80%;
-  min-height: 100vh; /* 保证至少占据视口高度 */
-  background-color: #0d1117;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  z-index: 1000;
-  padding-top: 20px;
-  box-sizing: border-box;
-  overflow-y: auto; /* 如果内容超过屏幕，高度出现滚动条 */
-}
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 80%;
+    height: 100%;
+    background-color: #0d1117;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    z-index: 1000; 
+    padding-top: 20px;
+    box-sizing: border-box;
+  }
   
   .auth-container {
     margin-top: auto; /* 将这个容器推到底部 */
