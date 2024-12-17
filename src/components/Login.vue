@@ -84,6 +84,109 @@
 
 </template>
 
+<!-- <script>
+import { ref, watch, onMounted, onUnmounted } from 'vue';
+import { auth, googleProvider } from '../firebase'; 
+import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth'; 
+import { useRouter } from 'vue-router';
+
+export default {
+  name: 'Login',
+  setup() {
+    const email = ref('');
+    const password = ref('');
+    const step = ref('email'); // 当前的登录步骤 ('email' 或 'password')
+    const isLoginLoading = ref(false);
+    const isGoogleLoading = ref(false);
+    const router = useRouter();
+    const passwordInput = ref(null); // 引用密码输入框
+
+    // 处理表单提交
+    const handleFormSubmit = async () => {
+      if (step.value === 'password') {
+        isLoginLoading.value = true;
+        try {
+          await signInWithEmailAndPassword(auth, email.value, password.value);
+          router.push('/home');
+        } catch (error) {
+          alert('登录失败：' + error.message);
+        } finally {
+          isLoginLoading.value = false;
+        }
+      }
+    };
+
+    // 使用 Google 登录
+    const loginWithGoogle = async () => {
+      isGoogleLoading.value = true;
+      try {
+        await signInWithPopup(auth, googleProvider);
+        router.push('/home');
+      } catch (error) {
+        alert('Google 登录失败：' + error.message);
+      } finally {
+        isGoogleLoading.value = false;
+      }
+    };
+
+    // 切换到密码输入步骤
+    const goToPasswordStep = () => {
+      step.value = 'password';
+      // 聚焦密码输入框，触发键盘弹出（尤其在移动设备上）
+      setTimeout(() => {
+        passwordInput.value?.focus();
+      }, 300);
+    };
+
+    // 返回到邮箱输入步骤
+    const goBackToEmailStep = () => {
+      step.value = 'email';
+      password.value = ''; // 清空密码字段
+    };
+
+    // 监测密码字段是否被自动填充
+    watch(password, (newVal) => {
+      if (newVal) {
+        step.value = 'password';
+      }
+    });
+
+    // 在组件挂载时检查密码字段是否已被填充
+    let checkInterval = null;
+    onMounted(() => {
+      // 使用更短的间隔频率来检测密码自动填充
+      checkInterval = setInterval(() => {
+        if (passwordInput.value && passwordInput.value.value) {
+          password.value = passwordInput.value.value;
+          step.value = 'password';
+          clearInterval(checkInterval);
+        }
+      }, 100); // 每100ms检查一次
+      // 设置一个超时，避免无限期检查
+      setTimeout(() => {
+        if (checkInterval) clearInterval(checkInterval);
+      }, 5000); // 最多检查5秒
+    });
+
+    onUnmounted(() => {
+      if (checkInterval) clearInterval(checkInterval);
+    });
+
+    return {
+      email,
+      password,
+      step,
+      isLoginLoading,
+      isGoogleLoading,
+      handleFormSubmit,
+      loginWithGoogle,
+      goToPasswordStep,
+      goBackToEmailStep,
+      passwordInput, // 绑定到密码输入框的 ref
+    };
+  }
+};
+</script> -->
 <script>
 import { ref, watch, onMounted, onUnmounted } from 'vue';
 import { auth, googleProvider } from '../firebase'; 
@@ -100,6 +203,18 @@ export default {
     const isGoogleLoading = ref(false);
     const router = useRouter();
     const passwordInput = ref(null); // 引用密码输入框
+
+    // 在路由进入之前检查是否已经登录，若已登录则跳转到主页
+    router.beforeEach((to, from, next) => {
+      const currentUser = auth.currentUser;
+      if (currentUser && (to.path === '/login' || to.path === '/register')) {
+        // 如果用户已登录，且访问的是登录或注册页面，则跳转到主页
+        next('/home');
+      } else {
+        // 否则继续执行
+        next();
+      }
+    });
 
     // 处理表单提交
     const handleFormSubmit = async () => {
