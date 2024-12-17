@@ -320,12 +320,12 @@ export default {
 .button:disabled {
   background-color: #00000056;  /* 禁用时的背景色 */
   cursor: not-allowed; 
-  border: 2px solid #be030300;  /* 红色边框 */
+  border: 2px solid #be030300;
 }
 
 /* 禁用状态下移除悬停样式 */
 .button:disabled:hover {
-  border: 2px solid #be030362;  /* 确保禁用时仍然是红色边框 */
+  border: 2px solid #54545462;  /* 确保禁用时仍然是红色边框 */
 }
 
 .button:hover {
