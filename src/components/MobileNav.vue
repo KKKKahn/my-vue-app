@@ -166,7 +166,7 @@
   };
   </script>
   
-  <style scoped>
+  <!-- <style scoped>
  
   .user-info {
       display: flex;
@@ -352,4 +352,184 @@
 
 
 
+</style> -->
+
+<style scoped>
+/* 用户信息样式 */
+.user-info {
+  display: flex;
+  align-items: center; /* 垂直居中对齐 */
+  justify-content: flex-end; /* 让内容靠右 */
+  position: relative;
+}
+
+.user-details {
+  display: flex;
+  flex-direction: column; /* 垂直排列角色和邮箱 */
+  margin-right: 10px;
+}
+
+.user-avatar {
+  width: 40px; /* 控制图片大小 */
+  height: 40px; /* 控制图片大小 */
+  border-radius: 50%; /* 图片圆形 */
+  top: 0;
+  right: 0;
+}
+
+.user-role, .user-email {
+  margin-right: 10px; /* 添加一些间距 */
+}
+
+.user-email {
+  color: #fff;
+  font-size: 14px;
+}
+
+.user-role {
+  color: #ff6b6b;
+  font-weight: bold;
+}
+
+/* 移动端菜单样式 */
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 80%;
+  height: 100vh; /* 使用 100vh 确保菜单充满屏幕 */
+  background-color: #0d1117;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* 保证顶部和底部内容不重叠 */
+  align-items: center;
+  z-index: 1000;
+  padding-top: 20px;
+  box-sizing: border-box;
+  overflow: hidden; /* 避免滚动条出现 */
+}
+
+/* 菜单项的样式 */
+.mobile-nav-link {
+  color: #ffffff;
+  font-size: 20px;
+  margin: 15px 0;
+  text-decoration: none;
+}
+
+/* 底部用户信息部分的样式 */
+.auth-container {
+  width: 100%; /* 容器宽度占据整个菜单宽度 */
+  background-color: #1e2127; /* 背景色 */
+  text-align: center;
+  padding: 10px 0;
+  box-sizing: border-box;
+  margin-top: auto; /* 让这个容器推到底部 */
+}
+
+/* 用户头像和信息的样式 */
+.user-info {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 10px;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.user-details {
+  display: flex;
+  flex-direction: column; /* 垂直排列用户角色和邮箱 */
+  justify-content: flex-start;
+}
+
+.user-role {
+  color: #ff6b6b;
+  font-weight: bold;
+}
+
+.user-email {
+  color: #fff;
+  font-size: 14px;
+}
+
+/* 按钮样式 */
+.button {
+  padding: 8px 16px;
+  border-radius: 10px;
+  border: none;
+  text-decoration: none;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* 汉堡菜单按钮的样式 */
+.burger-menu {
+  display: none;
+  position: absolute;
+  top: 13px;
+  right: 20px;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 30px;
+  cursor: pointer;
+}
+
+.burger-menu .line {
+  width: 25px;
+  height: 3px;
+  background-color: #ffffff;
+  border-radius: 2px;
+}
+
+/* 菜单遮罩层 */
+.menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+  z-index: 900;
+}
+
+/* 在小屏幕下隐藏其他菜单 */
+.nav-center {
+  display: none;
+}
+
+.burger-menu {
+  display: flex;
+}
+
+.auth-button {
+  display: none;
+}
+
+.desktop-only {
+  display: none;
+}
+
+.mobile-auth {
+  display: flex;
+}
+
+.mobile-user-info {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+}
+
+.mobile-user-email {
+  color: #ffffff;
+  font-size: 14px;
+  margin-right: 10px;
+}
 </style>
