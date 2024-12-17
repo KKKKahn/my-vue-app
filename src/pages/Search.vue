@@ -3,7 +3,7 @@
     <h1>搜索</h1>
     <div class="search-box">
       <input v-model="query" type="text" placeholder="输入搜索内容..." />
-      <button @click="handleSearch" class="search-button">搜索</button>
+      <button @click="handleSearch" class="button">搜索</button>
     </div>
 
     <div v-if="results.length > 0">
@@ -52,6 +52,7 @@
   padding: 20px; /* 给一些内边距，避免内容太靠边 */
 }
 
+
 .search-box {
   display: flex; 
   justify-content: center; 
@@ -71,7 +72,7 @@ input[type="text"] {
   background-color: #222831;
   color: white;
   border-radius: 8px;
-  border: 1px solid #6c5ce7;
+  border: 1px solid #ffffff;
   box-sizing: border-box; 
 }
 
@@ -79,21 +80,7 @@ input[type="text"]::placeholder {
   color: #888;
 }
 
-.search-button {
-  padding: 12px 20px;
-  font-size: 16px;
-  background-color: #6c5ce7;
-  color: white;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-  white-space: nowrap; 
-  width: 120px; /* 限制按钮宽度，避免太宽 */
-}
 
-.search-button:hover {
-  background-color: #8e44ad;
-}
 
 /* 媒体查询：手机小屏幕的适配 */
 @media (max-width: 768px) {

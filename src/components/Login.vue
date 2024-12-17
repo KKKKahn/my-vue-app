@@ -311,6 +311,30 @@ export default {
   margin: 20px 0;
 }
 
+/* 普通按钮的悬停效果 */
+.button:hover {
+  border: 2px solid #6c5ce7;  /* 紫色边框 */
+}
+
+/* 禁用按钮的样式 */
+.button:disabled {
+  background-color: #00000056;  /* 禁用时的背景色 */
+  cursor: not-allowed; 
+  border: 2px solid #be030300;  /* 红色边框 */
+}
+
+/* 禁用状态下移除悬停样式 */
+.button:disabled:hover {
+  border: 2px solid #be030362;  /* 确保禁用时仍然是红色边框 */
+}
+
+.button:hover {
+  border: 2px solid #6c5ce7;  /* 紫色边框 */
+}
+.button {
+  border: 2px solid #6c5ce700;  /* 紫色边框 */
+}
+
 .divider::before,
 .divider::after {
   content: '';

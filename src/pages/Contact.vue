@@ -4,7 +4,7 @@
       <form @submit.prevent="handleSubmit">
         <input v-model="name" type="text" placeholder="输入你的名字" required />
         <textarea v-model="message" placeholder="输入留言" required></textarea>
-        <button type="submit">提交留言</button>
+        <button type="button">提交留言</button>
       </form>
     </div>
   </template>
@@ -41,9 +41,5 @@ input, textarea {
   margin-bottom: 10px;
 }
 
-button {
-  margin-top: 10px;
-  border-radius: 8px;
-  background: linear-gradient(90deg, #6c5ce7 0%, #0984e3 100%);
-}
+
   </style>

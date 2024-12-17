@@ -57,7 +57,7 @@ body {
   min-width: 320px;
   min-height: 100vh;
   font-family: 'Inter', sans-serif;
-  background-color: #0d1117;
+  background-color: #0b0b0bbe;
   color: #e1e1e1;
 }
 
@@ -139,13 +139,9 @@ button:focus, button:focus-visible {
 }
 
 .button:hover {
-  background-color: #8e44ad;
+  background-color: #3232323e;
 }
 
-.button:disabled {
-  background-color: #444; 
-  cursor: not-allowed; 
-}
 
 /* 🔹 加载动画 */
 .loader {
