@@ -80,7 +80,7 @@ export default {
     const router = useRouter();
     
     // Cloudflare Worker API 地址
-    const apiBaseUrl = 'https://account.kahn.love/api/users'; // 这里填写 Cloudflare Worker API 地址
+    const apiBaseUrl = 'https://new.kahn.love/api/users'; // 这里填写 Cloudflare Worker API 地址
 
     // 📘 获取当前用户的角色和头像，增加重试机制
     const getUserInfo = async (email, retryCount = 5) => {
