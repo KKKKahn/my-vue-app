@@ -160,7 +160,7 @@ export default {
 /* 样式可以保持不变，或者根据需要添加样式 */
 </style> -->
 
-<script>
+<!-- <script>
 import { ref, onMounted } from 'vue';
 import { auth } from '../firebase';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
@@ -228,6 +228,65 @@ export default {
           alert('❌ 注册失败：用户已存在');
         } else if (error.response && error.response.status === 500) {
           alert('❌ 注册失败：服务器错误，请稍后重试');
+        } else {
+          alert('❌ 注册失败：网络错误或其他未知错误');
+        }
+      } finally {
+        isLoading.value = false;
+      }
+    };
+
+    return {
+      email,
+      password,
+      isLoading,
+      register
+    };
+  }
+};
+</script> -->
+
+
+<script>
+import { ref, onMounted } from 'vue';
+import { auth } from '../firebase';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { useRouter } from 'vue-router';
+
+export default {
+  name: 'Register',
+  setup() {
+    const email = ref('');
+    const password = ref('');
+    const isLoading = ref(false);
+    const router = useRouter();
+
+    // 检查用户是否已经登录，如果是则跳转到主页
+    onMounted(() => {
+      if (auth.currentUser) {
+        router.push('/home'); // 用户已登录，重定向到主页
+      }
+    });
+
+    const register = async () => {
+      isLoading.value = true;
+
+      try {
+        // 1️⃣ 在 Firebase 中创建新用户
+        const userCredential = await createUserWithEmailAndPassword(auth, email.value, password.value);
+        const user = userCredential.user;
+        console.log('✅ 成功创建用户:', user.email);
+
+        // 注册成功后，立即跳转到首页
+        router.push('/home');
+
+      } catch (error) {
+        console.error('❌ 注册失败：', error);
+        
+        if (error.code === 'auth/email-already-in-use') {
+          alert('❌ 注册失败：用户已存在');
+        } else if (error.code === 'auth/weak-password') {
+          alert('❌ 注册失败：密码太弱');
         } else {
           alert('❌ 注册失败：网络错误或其他未知错误');
         }
