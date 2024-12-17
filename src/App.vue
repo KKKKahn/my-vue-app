@@ -58,7 +58,7 @@ body {
   display: flex;
   place-items: center;
   min-width: 320px;
-  min-height: 100vh;
+  min-height: 100%;
   font-family: 'Inter', sans-serif;
   background-color: #0b0b0bbe;
   color: #e1e1e1;
