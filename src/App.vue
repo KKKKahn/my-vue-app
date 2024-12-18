@@ -4,6 +4,10 @@
     <div class="content-wrapper">
       <router-view />
     </div>
+    <button class="toggle-theme" onclick="toggleTheme()">
+      <img class="sun" src="https://cdn-icons-png.flaticon.com/128/2893/2893114.png" alt="Sun" />
+      <img class="moon" src="https://cdn-icons-png.flaticon.com/128/9689/9689799.png" alt="Moon" />
+    </button>
   </div>
 </template>
 

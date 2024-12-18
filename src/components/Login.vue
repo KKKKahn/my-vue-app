@@ -397,4 +397,10 @@ export default {
   color: #555; 
 }
 
+
+@media (max-width: 768px) {
+  html, body {
+    overflow-y: hidden; /* 在小屏幕上禁用滚动 */
+  }
+}
 </style>

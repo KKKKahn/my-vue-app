@@ -38,7 +38,6 @@ body {
   position: fixed;
   top: 20px;
   left: 20px;
-  z-index: 10000; /* 确保按钮层级高于其他元素 */
   background: none;
   border: none;
   cursor: pointer;
