@@ -1,3 +1,16 @@
+/* src/assets/styles/nprogress.css 或者在 App.vue 中的 <style> 中加入 */
+#nprogress .bar {
+  background: #864caf;  /* 改成绿色 */
+  height: 3px;  /* 设置进度条的高度 */
+}
+
+#nprogress .spinner-icon {
+  border-top-color: #814caf;  /* 设置进度条旋转图标的颜色 */
+}
+
+#nprogress .peg {
+  box-shadow: 0 0 10px 5px #964caf;  /* 设置阴影 */
+}
 
 /* 🔹 通用容器样式 */
 .auth-container {

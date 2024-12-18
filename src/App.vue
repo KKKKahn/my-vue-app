@@ -1,9 +1,13 @@
 <template>
-  <div id="app">
+  <div id="app" :class="{ dark: darkMode, light: !darkMode }">
     <NavBar />
     <div class="content-wrapper">
       <router-view />
     </div>
+    <!-- 切换日夜模式按钮 -->
+    <button class="toggle-theme" @click="toggleDarkMode">
+      {{ darkMode ? '切换到日间模式' : '切换到夜间模式' }}
+    </button>
   </div>
 </template>
 
@@ -11,7 +15,7 @@
 import NavBar from './components/NavBar.vue';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './firebase';
-import { ref } from 'vue';
+import { ref, onMounted, watch } from 'vue';
 
 export default {
   name: 'App',
@@ -20,12 +24,32 @@ export default {
   },
   setup() {
     const user = ref(null);
+    const darkMode = ref(localStorage.getItem('darkMode') === 'true'); // 获取 localStorage 中的值
 
+    // 监听 darkMode 变化并保存到 localStorage
+    watch(darkMode, (newValue) => {
+      localStorage.setItem('darkMode', newValue.toString());
+    });
+
+    // 切换模式
+    const toggleDarkMode = () => {
+      darkMode.value = !darkMode.value;
+    };
+
+    // 等待 Firebase 的用户认证状态
     onAuthStateChanged(auth, (currentUser) => {
       user.value = currentUser;
     });
 
-    return { user };
+    // 页面加载时检查系统的默认主题
+    onMounted(() => {
+      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (localStorage.getItem('darkMode') === null) {
+        darkMode.value = prefersDark;
+      }
+    });
+
+    return { user, darkMode, toggleDarkMode };
   }
 };
 </script>
@@ -33,7 +57,46 @@ export default {
 
 
 
+
+
 <style>
+:root {
+  /* 默认是浅色模式（day mode） */
+  --background-color: #ffffff;
+  --text-color: #213547;
+  --button-background: #f9f9f9;
+  --button-color: black;
+  --link-color: #6c5ce7;
+  --navbar-background: #ffffff;
+}
+
+/* 当页面处于夜间模式时，修改颜色变量 */
+.dark {
+  --background-color: #121212;
+  --text-color: #ffffff;
+  --button-background: #333333;
+  --button-color: #ffffff;
+  --link-color: #bb86fc;
+  --navbar-background: #1e1e1e;
+}
+
+/* 日间模式下 */
+.light {
+  --background-color: #ffffff;
+  --text-color: #213547;
+  --button-background: #f9f9f9;
+  --button-color: black;
+  --link-color: #6c5ce7;
+  --navbar-background: #ffffff;
+}
+.toggle-theme {
+  position: fixed;
+  top: 20px;  /* 距离顶部 20px */
+  left: 20px;  /* 距离左边 20px */
+  z-index: 1000;  /* 确保按钮位于其他内容之上 */
+}
+
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
