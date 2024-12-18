@@ -1,13 +1,9 @@
 <template>
-  <div id="app" :class="{ dark: darkMode, light: !darkMode }">
+  <div id="app">
     <NavBar />
     <div class="content-wrapper">
       <router-view />
     </div>
-    <!-- 切换日夜模式按钮 -->
-    <button class="toggle-theme" @click="toggleDarkMode">
-      {{ darkMode ? '切换到日间模式' : '切换到夜间模式' }}
-    </button>
   </div>
 </template>
 
@@ -15,7 +11,7 @@
 import NavBar from './components/NavBar.vue';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './firebase';
-import { ref, onMounted, watch } from 'vue';
+import { ref } from 'vue';
 
 export default {
   name: 'App',
@@ -24,87 +20,25 @@ export default {
   },
   setup() {
     const user = ref(null);
-    const darkMode = ref(localStorage.getItem('darkMode') === 'true'); // 获取 localStorage 中的值
 
-    // 监听 darkMode 变化并保存到 localStorage
-    watch(darkMode, (newValue) => {
-      localStorage.setItem('darkMode', newValue.toString());
-    });
-
-    // 切换模式
-    const toggleDarkMode = () => {
-      darkMode.value = !darkMode.value;
-    };
-
-    // 等待 Firebase 的用户认证状态
     onAuthStateChanged(auth, (currentUser) => {
       user.value = currentUser;
     });
 
-    // 页面加载时检查系统的默认主题
-    onMounted(() => {
-      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-      if (localStorage.getItem('darkMode') === null) {
-        darkMode.value = prefersDark;
-      }
-    });
-
-    return { user, darkMode, toggleDarkMode };
+    return { user };
   }
 };
 </script>
 
-
-
-
-
-
 <style>
-:root {
-  /* 默认是浅色模式（day mode） */
-  --background-color: #ffffff;
-  --text-color: #213547;
-  --button-background: #f9f9f9;
-  --button-color: black;
-  --link-color: #6c5ce7;
-  --navbar-background: #ffffff;
-}
-
-/* 当页面处于夜间模式时，修改颜色变量 */
-.dark {
-  --background-color: #121212;
-  --text-color: #ffffff;
-  --button-background: #333333;
-  --button-color: #ffffff;
-  --link-color: #bb86fc;
-  --navbar-background: #1e1e1e;
-}
-
-/* 日间模式下 */
-.light {
-  --background-color: #ffffff;
-  --text-color: #213547;
-  --button-background: #f9f9f9;
-  --button-color: black;
-  --link-color: #6c5ce7;
-  --navbar-background: #ffffff;
-}
-.toggle-theme {
-  position: fixed;
-  top: 20px;  /* 距离顶部 20px */
-  left: 20px;  /* 距离左边 20px */
-  z-index: 1000;  /* 确保按钮位于其他内容之上 */
-}
-
-
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  /* color: rgba(255, 255, 255, 0.87);
+  background-color: #242424; */
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -121,10 +55,10 @@ body {
   display: flex;
   place-items: center;
   min-width: 320px;
-  min-height: 100%;
+  min-height: 100vh;
   font-family: 'Inter', sans-serif;
-  background-color: #0b0b0bbe;
-  color: #e1e1e1;
+  /* background-color: #0d1117;
+  color: #e1e1e1; */
 }
 
 a {
@@ -132,11 +66,11 @@ a {
   text-decoration: inherit;
 }
 a:hover {
-  color: #535bf2;
+  color: #5656565a;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  color: #ffffff;
+  color: var(--text-color);
 }
 
 h1 {
@@ -144,18 +78,7 @@ h1 {
   line-height: 1.1;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-}
+
 #app {
   text-align: center;
   width: 90%;
@@ -163,6 +86,9 @@ h1 {
   margin: 0 auto;
   padding: 0rem;
 }
+
+
+
 
 
 
@@ -182,13 +108,7 @@ button {
   transition: border-color 0.25s;
 }
 
-button:hover {
-  border-color: #646cff;
-}
 
-button:focus, button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
 
 .button {
   width: 100%; 
@@ -205,8 +125,9 @@ button:focus, button:focus-visible {
 }
 
 .button:hover {
-  background-color: #3232323e;
+  background-color: #181818;
 }
+
 
 
 /* 🔹 加载动画 */
@@ -237,4 +158,7 @@ button:focus, button:focus-visible {
   height: 100%;
   box-sizing: border-box; /* 包括内边距在内 */
 }
+
+
+
 </style>

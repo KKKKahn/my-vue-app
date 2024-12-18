@@ -304,6 +304,17 @@ export default {
 </script>
 
 <style scoped>
+
+/* 默认占位符颜色 */
+.input-field::placeholder {
+  color: #a0a0a0; /* 默认颜色 */
+}
+
+/* 当输入框获得焦点时，占位符文字的颜色 */
+.input-field:focus::placeholder {
+  color: #585858; /* 例如修改为红色 */
+}
+
 .divider {
   width: 100%;
   display: flex;
@@ -311,28 +322,27 @@ export default {
   margin: 20px 0;
 }
 
-/* 普通按钮的悬停效果 */
-.button:hover {
-  border: 2px solid #6c5ce7;  /* 紫色边框 */
-}
 
 /* 禁用按钮的样式 */
 .button:disabled {
-  background-color: #00000056;  /* 禁用时的背景色 */
+  background-color: var(--menu);  /* 禁用时的背景色 */
   cursor: not-allowed; 
   border: 2px solid #be030300;
 }
 
 /* 禁用状态下移除悬停样式 */
 .button:disabled:hover {
-  border: 2px solid #54545462;  /* 确保禁用时仍然是红色边框 */
+  border: 2px solid #7f7f7f00;  /* 确保禁用时仍然是红色边框 */
+  background-color: var(--menu);  /* 禁用时的背景色 */
 }
 
 .button:hover {
-  border: 2px solid #6c5ce7;  /* 紫色边框 */
+  border: 2px solid #000000;  /* 紫色边框 */
+  background-color: var(--button-hover);
 }
 .button {
   border: 2px solid #6c5ce700;  /* 紫色边框 */
+  background-color: var(--button);
 }
 
 .divider::before,
@@ -366,14 +376,15 @@ export default {
   justify-content: center; 
   background-color: #fff; 
   color: #555; 
-  border: 1px solid #ddd; 
+  border: 2px solid #ddd; 
   font-size: 16px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 .google-login-button:hover {
-  background-color: #f5f5f5;
+  background-color: var(--menu);
+  border: 2px solid var(--menu); 
 }
 
 .google-icon {

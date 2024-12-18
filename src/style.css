@@ -1,21 +1,108 @@
+body {
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  min-height: 100vh;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* 浅色模式 */
+.light {
+  --background-color: #ffffff;
+  --text-color: #000000d7;
+  --nav-link:#64646470;
+  --menu:#cbcbcbc6;
+  --input:#cbcbcb48;
+  --button:#000000;
+  --button-hover:#000000d1;
+}
+
+/* 深色模式 */
+.dark {
+  --background-color: #121212;
+  --text-color: #ffffff;
+  --nav-link:#5c5c5c70;
+  --menu:#5c5c5c50;
+  --input:#5c5c5c50;
+  --button:#444444;
+  --button-hover:#3a3a3a52;
+}
+
+/* 设置页面背景色和文字色 */
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+/* 日夜模式按钮样式 */
+.toggle-theme {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 1000;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.toggle-theme img {
+  width: 50px;
+  height: 50px;
+  transition: transform 0.3s ease;
+}
+
+.toggle-theme img:hover {
+  transform: scale(1.1);
+}
+
+/* 浅色模式按钮图标 */
+.light .toggle-theme img.sun {
+  display: block;
+}
+
+.light .toggle-theme img.moon {
+  display: none;
+}
+
+/* 深色模式按钮图标 */
+.dark .toggle-theme img.sun {
+  display: none;
+}
+
+.dark .toggle-theme img.moon {
+  display: block;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* src/assets/styles/nprogress.css 或者在 App.vue 中的 <style> 中加入 */
 #nprogress .bar {
-  background: #864caf;  /* 改成绿色 */
+  background: #ffffff;  /* 改成绿色 */
   height: 3px;  /* 设置进度条的高度 */
 }
 
 #nprogress .spinner-icon {
-  border-top-color: #814caf;  /* 设置进度条旋转图标的颜色 */
+  border-top-color: #737373;  /* 设置进度条旋转图标的颜色 */
 }
 
 #nprogress .peg {
-  box-shadow: 0 0 10px 5px #964caf;  /* 设置阴影 */
+  box-shadow: 0 0 10px 5px #484848;  /* 设置阴影 */
 }
 
 /* 🔹 通用容器样式 */
 .auth-container {
   width: 100%;
-  background-color: #0d1117; 
+  background-color: var(--nav-link); 
   display: flex;
   justify-content: center;
   /* align-items: center; */
@@ -53,32 +140,8 @@
 
 
 
-/* 🔹 共享输入框样式 */
-.input-field {
-  width: 100%; 
-  padding: 15px 20px;
-  font-size: 16px;
-  border: 2px solid #3e3e42;
-  border-radius: 12px; 
-  background-color: #1e1e24; 
-  color: #ffffff;
-  outline: none;
-  box-sizing: border-box; 
-  transition: all 0.3s ease;
-}
 
-.input-field::placeholder {
-  color: #b1b1b1;
-}
 
-.input-field:focus {
-  border-color: #6c5ce7; 
-  background-color: #1c1f26; 
-}
-
-.input-field:hover {
-  border-color: #8e44ad; 
-}
 
 
 
@@ -87,7 +150,7 @@
 /* 🔹 注册页面样式 */
 .auth-title {
   font-size: 32px;
-  color: #ffffff;
+  color: var(--text-color);
   font-weight: bold;
   margin-bottom: 20px;
   text-align: center;
@@ -100,7 +163,6 @@
 
 .register-button {
   width: 100%;
-  background-color: #6c5ce7;
   color: #ffffff;
   font-size: 18px;
   border: none;
@@ -110,19 +172,13 @@
   transition: all 0.3s ease;
 }
 
-.register-button:hover {
-  background-color: #8e44ad;
-}
+
 
 .login-prompt {
   color: #e1e1e1;
   margin-top: 20px;
 }
 
-.login-link {
-  color: #6c5ce7;
-  text-decoration: none;
-}
 
 .login-link:hover {
   text-decoration: underline;
@@ -140,7 +196,7 @@
   font-size: 16px;
   border: 2px solid #3e3e42;
   border-radius: 12px;
-  background-color: #1e1e24; 
+  background-color: var(--input); 
   color: #ffffff;
   outline: none;
   box-sizing: border-box; 
@@ -152,13 +208,18 @@
 }
 
 .input-group input:focus {
-  border-color: #6c5ce7; 
-  background-color: #1c1f26; 
+  border-color: #7a7a7a75; 
+  background-color: #6b6b6b45; 
 }
 
-.input-group input:hover {
-  border-color: #8e44ad; 
+
+
+.input-field::placeholder {
+  color: #373737; /* 修改占位符的文字颜色 */
 }
+
+
+
 
 .forgot-password-link,
 .back-to-login,

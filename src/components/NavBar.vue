@@ -36,6 +36,15 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
+/* :root{
+  text-color:var(--text-color);
+} */
+.nav-link {
+  font-size: 20px;
+  text-decoration: none;
+  color: var(--text-color);
+  font-weight: 500;
+}
 
 </style>
