@@ -36,15 +36,15 @@ body {
 /* 日夜模式按钮样式 */
 .toggle-theme {
   position: fixed;
-  top: 10px;
-  left: 10px;
+  top: 20px;
+  left: 20px;
   z-index: 10000; /* 确保按钮层级高于其他元素 */
   background: none;
   border: none;
   cursor: pointer;
   transition: all 0.3s ease;
-  width: 50px;
-  height: 50px;
+  width: 60px;
+  height: 60px;
   display: inline-block;
   padding: 0;
   box-sizing: border-box;
