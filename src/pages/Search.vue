@@ -69,7 +69,7 @@ input[type="text"] {
   max-width: 400px; /* 在大屏幕上确保更大宽度 */
   padding: 12px;
   font-size: 16px;
-  background-color: #222831;
+  background-color: var(--input);
   color: white;
   border-radius: 8px;
   border: 1px solid #ffffff;
@@ -80,7 +80,12 @@ input[type="text"]::placeholder {
   color: #888;
 }
 
-
+button{
+  background-color: var(--button);
+}
+button:hover{
+  background-color: var(--button-hover);
+}
 
 /* 媒体查询：手机小屏幕的适配 */
 @media (max-width: 768px) {
