@@ -262,6 +262,7 @@ export default {
   justify-content: space-around;
   height: 35px; /* 修改按钮的总高度 */
   cursor: pointer;
+  z-index: 10000; /* 确保按钮层级高于其他元素 */
 }
 
 /* 修改每条线的宽度和高度 */
