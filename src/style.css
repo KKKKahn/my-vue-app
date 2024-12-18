@@ -38,16 +38,22 @@ body {
   position: fixed;
   top: 10px;
   left: 10px;
-  z-index: 1000;
+  z-index: 10000; /* 确保按钮层级高于其他元素 */
   background: none;
   border: none;
   cursor: pointer;
   transition: all 0.3s ease;
+  width: 50px;
+  height: 50px;
+  display: inline-block;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 .toggle-theme img {
-  width: 50px;
-  height: 50px;
+  width: 100%; /* 让图标的宽度完全充满按钮 */
+  height: 100%; /* 让图标的高度完全充满按钮 */
+  object-fit: contain; /* 确保图标不会拉伸变形 */
   transition: transform 0.3s ease;
 }
 
