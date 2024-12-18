@@ -196,15 +196,11 @@ export default {
   right: 0;
 }
 
-.user-role,
-.user-email {
-  margin-right: 10px;
-  /* 添加一些间距 */
-}
+
 
 .user-email {
   color: #fff;
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .user-role {
@@ -218,7 +214,7 @@ export default {
   position: fixed;
   top: 0;
   right: 0;
-  width: 80%;
+  width: 60%;
   height: 100%;
   background-color: var(--menu);
   display: flex;
