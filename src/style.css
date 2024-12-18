@@ -4,6 +4,13 @@ body {
   min-height: 100vh;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
+html, body {
+  overflow: hidden !important; /* 禁用滚动 */
+  height: 100% !important; /* 确保页面高度为100% */
+  margin: 0 !important;/* 去除默认边距 */
+}
+
+
 
 /* 浅色模式 */
 .light {
@@ -82,11 +89,6 @@ body {
 
 
 
-html, body {
-  overflow: hidden !important; /* 禁用滚动 */
-  height: 100% !important; /* 确保页面高度为100% */
-  margin: 0 !important;/* 去除默认边距 */
-}
 
 
 
@@ -183,12 +185,6 @@ html, body {
 
 
 
-.login-prompt {
-  color: #e1e1e1;
-  margin-top: 20px;
-}
-
-
 .login-link:hover {
   text-decoration: underline;
 }
@@ -203,7 +199,7 @@ html, body {
   width: 100%;
   padding: 15px 20px;
   font-size: 16px;
-  border: 2px solid #3e3e42;
+  border: 2px solid #6d6d6d20;
   border-radius: 12px;
   background-color: var(--input); 
   color: #ffffff;

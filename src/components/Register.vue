@@ -13,8 +13,7 @@
         <span v-else>处理中...</span>
       </button>
     </form>
-
-    <p class="login-prompt">
+    <p>
       已有账户？<router-link to="/login" class="login-link">登录</router-link>
     </p>
   </div>

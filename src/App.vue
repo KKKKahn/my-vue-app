@@ -66,11 +66,11 @@ body {
 }
 
 a {
-  color: #6c5ce7;
+  color: #89898988;
   text-decoration: inherit;
 }
 a:hover {
-  color: #5656565a;
+  color: #0000005a;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -116,7 +116,6 @@ button {
 
 .button {
   width: 100%; 
-  background-color: #5f5e695d;
   color: #ffffff;
   font-size: 18px;
   border: none;
@@ -128,8 +127,10 @@ button {
   box-sizing: border-box; 
 }
 
+
+
 .button:hover {
-  background-color: #181818;
+  background-color: #2c2c2c;
 }
 
 
